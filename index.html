@@ -3,91 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#FA2828" />
+  <meta name="theme-color" content="#F5F6F8" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AD PAY" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="AD pay" />
   <link rel="manifest" href="manifest.json" />
-  <title>AD PAY — 더 나은 삶을 위해 (2045)</title>
+  <title>AD pay — 시간을 화폐로 (2045)</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js" onerror="console.log('fallback tailwind')"></script>
   <style>
     :root {
+      --kpay-bg: #F5F6F8;
+      --kpay-card: #FFFFFF;
+      --kpay-dark: #191919;
+      --kpay-gray: #8E8E93;
       --payco-red: #FA2828;
-      --payco-crimson: #D91428;
-      --payco-bg: #F3F5F7;
-      --payco-card: #FFFFFF;
-      --payco-text: #1E1E23;
-      --payco-sub: #767678;
+      --payco-red-dark: #D91428;
     }
     body {
       font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
       overscroll-behavior-y: none;
-    }
-    @keyframes pulse-soft {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.06); opacity: 0.75; }
+      background-color: #F5F6F8;
+      color: #191919;
     }
     @keyframes blink-alert {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+      50% { opacity: 0.25; }
     }
     @keyframes slide-up {
       from { transform: translateY(100%); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    .animate-pulse-soft { animation: pulse-soft 2s infinite ease-in-out; }
+    @keyframes barcode-scan {
+      0%, 100% { transform: translateY(0px); opacity: 0.85; }
+      50% { transform: translateY(44px); opacity: 1; }
+    }
     .animate-blink { animation: blink-alert 0.9s infinite ease-in-out; }
-    .animate-slide-up { animation: slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .animate-slide-up { animation: slide-up 0.24s cubic-bezier(0.16, 1, 0.3, 1); }
+    .animate-scanline { animation: barcode-scan 2.2s infinite ease-in-out; }
 
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 160, 0.3); border-radius: 9999px; }
+    ::-webkit-scrollbar { width: 0px; height: 0px; }
 
-    /* PAYCO Signature Red Gradient */
-    .payco-gradient {
+    /* KakaoPay Card Shadow & Radius */
+    .kpay-card {
+      background: #FFFFFF;
+      border-radius: 24px;
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.035);
+    }
+    .payco-money-card {
       background: linear-gradient(135deg, #FA2828 0%, #D91428 100%);
+      border-radius: 26px;
+      box-shadow: 0 8px 24px rgba(250, 40, 40, 0.24);
     }
     .safe-bottom {
-      padding-bottom: max(0.6rem, env(safe-area-inset-bottom));
+      padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    }
+    /* Crisp CSS Barcode Pattern */
+    .css-barcode {
+      background-image: repeating-linear-gradient(
+        to right,
+        #191919 0px, #191919 2px,
+        transparent 2px, transparent 5px,
+        #191919 5px, #191919 9px,
+        transparent 9px, transparent 11px,
+        #191919 11px, #191919 12px,
+        transparent 12px, transparent 16px,
+        #191919 16px, #191919 20px,
+        transparent 20px, transparent 23px
+      );
     }
   </style>
 </head>
-<body class="bg-[#F3F5F7] md:bg-zinc-900 text-[#1E1E23] antialiased selection:bg-[#FA2828] selection:text-white min-h-screen flex flex-col">
+<body class="bg-[#F5F6F8] md:bg-zinc-900 text-[#191919] antialiased selection:bg-[#FA2828] selection:text-white min-h-screen flex flex-col">
 
-  <!-- ==================== DESKTOP STUDIO TOP BAR (Hidden on Mobile Phones for Native App Feel) ==================== -->
-  <header class="hidden md:flex sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-md border-b border-white/10 px-6 py-3 items-center justify-between text-white">
+  <!-- ==================== DESKTOP STUDIO HEADER (Hidden on Mobile Phones) ==================== -->
+  <header class="hidden md:flex sticky top-0 z-40 bg-zinc-950/95 backdrop-blur-md border-b border-white/10 px-6 py-3 items-center justify-between text-white">
     <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-xl payco-gradient flex items-center justify-center text-white font-black text-sm shadow-md">
-        AD
+      <div class="w-9 h-9 rounded-2xl bg-[#FA2828] flex items-center justify-center text-white font-black text-sm shadow-md">
+        pay
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <h1 class="font-bold text-sm tracking-tight text-white">AD PAY · 네이버페이 구조 × PAYCO 레드 모바일 앱 (2045)</h1>
-          <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-[#FA2828]/20 text-red-400 border border-[#FA2828]/30">PAYCO Red (#FA2828)</span>
+          <h1 class="font-extrabold text-sm tracking-tight text-white">AD pay · 카카오페이 1:1 구조 × PAYCO 레드 프로토타입</h1>
+          <span class="px-2 py-0.5 text-xs font-bold rounded-full bg-[#FA2828]/20 text-red-400 border border-[#FA2828]/30">KakaoPay UX Clone</span>
         </div>
-        <p class="text-xs text-zinc-400">스마트폰 접속 시 풀스크린 실제 앱으로 동작 · 데스크톱에서는 스튜디오 프리뷰 제공</p>
+        <p class="text-xs text-zinc-400">스마트폰 접속 시 100% 실제 카카오페이 앱 레이아웃으로 동작 · 2045 AD PAY 핵심 세계관 탑재</p>
       </div>
     </div>
 
-    <!-- Desktop View Mode Switcher -->
     <div class="flex items-center gap-1.5 bg-zinc-900 p-1 rounded-xl border border-white/10">
       <button onclick="setDesktopMode('app')" id="dmode-app" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-[#FA2828] text-white shadow-sm">
-        📱 모바일 앱 모드
+        📱 카카오페이 앱 뷰
       </button>
       <button onclick="setDesktopMode('fold')" id="dmode-fold" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-zinc-400 hover:text-white">
         📲 10화면 갤럭시 폴드 멀티뷰 (#2)
       </button>
       <button onclick="setDesktopMode('figma')" id="dmode-figma" class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all text-zinc-400 hover:text-white">
-        🎨 피그마 4대 화면 한눈에 보기
+        🎨 피그마 4대 아트보드
       </button>
     </div>
 
-    <div class="flex items-center gap-3">
-      <button onclick="copyFigmaSvg()" class="px-3 py-1.5 rounded-xl bg-[#FA2828]/15 hover:bg-[#FA2828]/25 border border-[#FA2828]/30 text-red-300 text-xs font-bold transition-all">
+    <div class="flex items-center gap-2.5">
+      <button onclick="copyFigmaSvg()" class="px-3.5 py-1.5 rounded-xl bg-[#FA2828] hover:bg-[#D91428] text-white text-xs font-extrabold transition-all shadow-sm">
         📋 피그마 붙여넣기용 SVG 복사
       </button>
       <button onclick="resetApp()" class="px-3 py-1.5 rounded-xl border border-white/15 hover:bg-zinc-800 text-xs text-zinc-300">
@@ -96,588 +116,663 @@
     </div>
   </header>
 
-  <!-- ==================== MAIN WORKSPACE CONTAINER ==================== -->
+  <!-- ==================== MAIN CONTAINER ==================== -->
   <div class="flex-1 flex flex-col items-center justify-center md:py-6 md:px-4">
 
-    <!-- ==================== VIEW 1: NATIVE MOBILE APP SHELL (Full screen on Mobile, Centered Frame on Desktop) ==================== -->
-    <div id="view-app-container" class="w-full md:max-w-5xl flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6">
+    <div id="view-app-container" class="w-full md:max-w-5xl flex flex-col lg:flex-row items-center lg:items-start justify-center gap-7">
 
       <!-- Left Desktop Scenario Guide (Hidden on Mobile) -->
       <aside class="hidden lg:flex flex-col w-80 space-y-4 shrink-0 text-zinc-100">
         <div class="bg-zinc-950 border border-white/10 rounded-3xl p-5 shadow-xl">
           <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FA2828]/20 text-red-400">시나리오 컨트롤러</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#FA2828]/20 text-red-400">보고서 4장 시나리오</span>
             <span class="text-xs text-zinc-400 font-mono">1 AD = 1원</span>
           </div>
-          <h2 class="text-base font-extrabold text-white mb-1">주인공 A의 하루 시연</h2>
+          <h2 class="text-base font-extrabold text-white mb-1">카카오페이 구조 × AD PAY</h2>
           <p class="text-xs text-zinc-400 leading-relaxed mb-4">
-            모바일에서는 앱 상단의 <strong>[🎬 시나리오 실행]</strong> 버튼으로 동일하게 모든 장면을 실행할 수 있습니다.
+            모바일에서는 우측 상단 <strong>[🎬 시나리오]</strong> 버튼 또는 하단 중앙 <strong>[결제 바코드]</strong> 버튼을 눌러 모든 핵심 기능을 체험할 수 있습니다.
           </p>
           <div class="space-y-2">
-            <button onclick="runScenario(1)" class="w-full p-2.5 rounded-xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
+            <button onclick="runScenario(1)" class="w-full p-2.5 rounded-2xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
               <span>⏰ #1. 기상 알람 (15초 고정광고)</span>
-              <span class="text-red-400">+100 AD</span>
+              <span class="text-red-400 font-bold">+100 AD</span>
             </button>
-            <button onclick="runScenario(2)" class="w-full p-2.5 rounded-xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
-              <span>📲 #2. 등교 준비 (10화면 폴드 & 퀴즈)</span>
-              <span class="text-red-400">+1,000 AD</span>
+            <button onclick="runScenario(2)" class="w-full p-2.5 rounded-2xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
+              <span>📲 #2. 등교 준비 (10화면 폴드 멀티뷰)</span>
+              <span class="text-red-400 font-bold">+1,000 AD</span>
             </button>
-            <button onclick="runScenario(3)" class="w-full p-2.5 rounded-xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
-              <span>🏫 #3. 강의실 출석 & 지각 삭제</span>
-              <span class="text-red-400">출결 앱</span>
+            <button onclick="runScenario(3)" class="w-full p-2.5 rounded-2xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
+              <span>🏫 #3. 강의실 출석 & 지각 기록 삭제</span>
+              <span class="text-red-400 font-bold">출결 팝업</span>
             </button>
-            <button onclick="runScenario(4)" class="w-full p-2.5 rounded-xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
-              <span>☕ #4. 캠퍼스 카페 (후불 광고 결제)</span>
-              <span class="text-red-400">+21분 빚</span>
+            <button onclick="runScenario(4)" class="w-full p-2.5 rounded-2xl bg-zinc-900 hover:bg-[#FA2828]/20 border border-white/10 hover:border-[#FA2828]/40 text-left text-xs font-semibold transition-all flex items-center justify-between">
+              <span>☕ #4. 캠퍼스 카페 (후불 광고 바코드)</span>
+              <span class="text-red-400 font-bold">+21분 빚</span>
             </button>
-            <button onclick="runScenario(5)" class="w-full p-2.5 rounded-xl bg-red-950/60 hover:bg-red-900/60 border border-red-500/40 text-left text-xs font-semibold text-red-200 transition-all flex items-center justify-between">
+            <button onclick="runScenario(5)" class="w-full p-2.5 rounded-2xl bg-red-950/60 hover:bg-red-900/60 border border-red-500/40 text-left text-xs font-semibold text-red-200 transition-all flex items-center justify-between">
               <span>🌙 #5. 야간 할당량 & 시청 이탈 경고</span>
-              <span class="text-red-400">🚨 경고음</span>
+              <span class="text-red-400 font-bold">🚨 경고음</span>
             </button>
           </div>
         </div>
 
-        <!-- Live Event Log on Desktop -->
         <div class="bg-zinc-950 border border-white/10 rounded-3xl p-5 shadow-xl">
-          <div class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">📡 실시간 앱 이벤트 로그</div>
+          <div class="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">📡 실시간 시스템 로그</div>
           <div id="desktop-log" class="space-y-2 max-h-60 overflow-y-auto text-xs pr-1">
             <div class="p-2.5 rounded-xl bg-zinc-900 text-zinc-300 border border-white/5">
-              <span class="text-red-400 font-bold">[PAYCO 레드]</span> 시그니처 레드(#FA2828) 키 컬러와 네이버페이 카드 레이아웃이 적용되었습니다.
+              <span class="text-red-400 font-bold">[KakaoPay 구조]</span> 홈·자산(약정)·결제(바코드)·혜택(광고)·전체 5탭 구조가 활성화되었습니다.
             </div>
           </div>
         </div>
       </aside>
 
-      <!-- ==================== MOBILE APP DEVICE CONTAINER ==================== -->
-      <div class="w-full md:w-[400px] min-h-screen md:min-h-0 md:h-[830px] bg-[#F3F5F7] md:rounded-[46px] md:shadow-2xl md:border-[6px] md:border-zinc-800 flex flex-col justify-between overflow-hidden relative">
+      <!-- ==================== KAKAOPAY MOBILE APP SHELL ==================== -->
+      <div class="w-full md:w-[395px] min-h-screen md:min-h-0 md:h-[844px] bg-[#F5F6F8] md:rounded-[48px] md:shadow-2xl md:border-[6px] md:border-zinc-800 flex flex-col justify-between overflow-hidden relative">
 
-        <!-- 1. TOP HEADER BAR -->
-        <div class="bg-[#1E1E23] text-white sticky top-0 z-30 shadow-sm">
-          <!-- Status & AI Eye Tracking Bar -->
-          <div class="px-4 pt-2 pb-1.5 flex items-center justify-between text-xs border-b border-white/10">
+        <!-- 1. KAKAOPAY STICKY TOP HEADER -->
+        <header class="bg-[#F5F6F8]/95 backdrop-blur-md sticky top-0 z-30 px-5 pt-3 pb-2.5">
+          <!-- Top Row: Brand Logo + AI Eye Pill + Icons -->
+          <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="font-mono font-bold text-red-400" id="app-clock">09:41</span>
-              <span class="text-zinc-400">·</span>
-              <span class="flex items-center gap-1 text-emerald-400 font-medium" id="eye-status-pill">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" id="eye-dot"></span>
-                <span id="eye-text">AI 시선 인증 중</span>
-              </span>
-            </div>
-            <!-- Mobile Quick Scenario Trigger Button -->
-            <div class="flex items-center gap-1.5">
-              <button onclick="toggleScenarioSheet()" class="px-2.5 py-0.5 rounded-full bg-[#FA2828] text-white font-extrabold text-xs flex items-center gap-1 shadow-sm active:scale-95 transition-transform">
-                <span>🎬 시나리오 실행</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Brand & Top Service Bar -->
-          <div class="px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <div class="w-7 h-7 rounded-full payco-gradient flex items-center justify-center text-white font-black text-xs shadow">
-                P
+              <!-- KakaoPay Style speech-bubble + bold 'pay' logo -->
+              <div class="flex items-center gap-1.5 cursor-pointer" onclick="switchTab('home')">
+                <span class="w-6 h-6 rounded-full bg-[#FA2828] text-white font-black text-xs flex items-center justify-center shadow-xs">P</span>
+                <span class="font-black text-xl tracking-tighter text-[#191919]">AD pay</span>
               </div>
-              <span class="font-black text-lg tracking-tight text-white">AD PAY</span>
-              <span class="text-xs px-2 py-0.5 rounded-full bg-[#FA2828]/20 text-red-400 font-bold border border-[#FA2828]/30">시간화폐</span>
+              <!-- AI Eye Tracking Live Pill -->
+              <div id="eye-pill" class="ml-1 px-2.5 py-0.5 rounded-full bg-white border border-slate-200/80 flex items-center gap-1.5 shadow-2xs">
+                <span id="eye-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="eye-label" class="text-xs font-bold text-slate-700">시선인증 ON</span>
+              </div>
             </div>
-            <div class="flex items-center gap-2 text-xs">
-              <button onclick="openFoldableSheet()" class="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-red-300 font-bold border border-[#FA2828]/30 transition-colors">
-                📲 10화면 폴드
+
+            <div class="flex items-center gap-1.5">
+              <button onclick="toggleScenarioSheet()" class="px-2.5 py-1 rounded-full bg-[#191919] text-white font-extrabold text-xs flex items-center gap-1 active:scale-95 transition-transform">
+                <span>🎬 시나리오</span>
               </button>
-              <button onclick="runScenario(5)" class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center relative" title="야간 알림">
+              <button onclick="runScenario(5)" class="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center relative text-sm" title="야간 알림">
                 <span>🔔</span>
                 <span class="w-2 h-2 rounded-full bg-[#FA2828] absolute top-1.5 right-1.5"></span>
               </button>
             </div>
           </div>
 
-          <!-- Persistent Live Ad Banner ("AD PAY: 시간을 아끼는 중입니다") -->
-          <div class="bg-gradient-to-r from-[#FA2828]/25 via-red-600/20 to-[#FA2828]/25 border-t border-[#FA2828]/30 px-4 py-1.5 flex items-center justify-between text-xs">
+          <!-- Persistent Floating Pill Banner ("AD PAY: 시간을 아끼는 중입니다") -->
+          <div onclick="switchTab('benefit')" class="mt-2.5 bg-[#191919] text-white px-3.5 py-2 rounded-2xl flex items-center justify-between text-xs cursor-pointer shadow-xs">
             <div class="flex items-center gap-2">
-              <span class="px-1.5 py-0.5 rounded bg-[#FA2828] text-white font-black text-xs">LIVE</span>
-              <span class="text-red-100 font-semibold">AD PAY: 시간을 아끼는 중입니다</span>
+              <span class="px-1.5 py-0.5 rounded-md bg-[#FA2828] text-white font-black text-xs">LIVE</span>
+              <span class="font-bold text-zinc-100">AD PAY: 시간을 아끼는 중입니다</span>
             </div>
-            <span class="font-mono font-bold text-red-400" id="live-rate-label">1분 = 100 AD</span>
+            <span class="font-mono font-bold text-red-400">1분 = 100 AD ›</span>
           </div>
-        </div>
+        </header>
 
-        <!-- 2. SCROLLABLE APP BODY (4 TABS) -->
-        <div class="flex-1 overflow-y-auto pb-6" id="app-scroll-body">
+        <!-- 2. SCROLLABLE MAIN CONTENT (5 KAKAOPAY TABS) -->
+        <main class="flex-1 overflow-y-auto px-4 pb-6 space-y-3.5" id="kpay-main-scroll">
 
-          <!-- ==================== TAB 1: 홈 (NAVER PAY LAYOUT + PAYCO RED KEY COLOR) ==================== -->
-          <section id="tab-home" class="p-4 space-y-3.5">
+          <!-- ==================== TAB 1: 홈 (KAKAOPAY HOME) ==================== -->
+          <section id="tab-home" class="space-y-3.5 pt-1">
 
-            <!-- Signature Point / Money Card (PAYCO Red Key Color) -->
-            <div class="payco-gradient rounded-[24px] p-5 text-white shadow-lg relative overflow-hidden">
-              <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full bg-white/10 pointer-events-none"></div>
-              <div class="flex items-center justify-between text-xs font-semibold text-red-100 mb-1">
-                <span class="flex items-center gap-1.5">
-                  <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center font-black text-xs">P</span>
-                  <span>AD 크레딧 포인트 (1 AD = 1원)</span>
-                </span>
-                <button onclick="switchAppTab('pay')" class="underline hover:text-white">원화 환전 ›</button>
+            <!-- 1) KakaoPay Top Money Card (페이머니 카드 1:1 구조 + PAYCO Red) -->
+            <div class="payco-money-card p-5 text-white relative overflow-hidden">
+              <div class="flex items-center justify-between mb-1">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs font-bold text-red-100">AD 페이머니</span>
+                  <span class="px-1.5 py-0.5 rounded bg-black/20 text-xs font-semibold text-red-100">1 AD = 1원</span>
+                </div>
+                <button onclick="switchTab('pay')" class="text-xs text-red-100 font-semibold hover:text-white">내역 · 바코드 ›</button>
               </div>
 
-              <div class="flex items-baseline justify-between my-2">
-                <div class="text-3xl font-black tracking-tight" id="ui-ad-balance">8,000 AD</div>
-                <span class="text-xs font-bold bg-black/20 px-2.5 py-1 rounded-full">일반 광고 80분 가치</span>
+              <!-- Big Balance + Time Value -->
+              <div class="flex items-baseline justify-between my-1.5">
+                <div class="text-3xl font-black tracking-tight" id="home-balance">8,000 AD</div>
+              </div>
+              <div class="text-xs font-semibold text-red-100 flex items-center gap-1.5 mb-4">
+                <span>⏱ 일반 광고 80분 가치</span>
+                <span>·</span>
+                <span>원화 8,000원 즉시 환전 가능</span>
               </div>
 
-              <!-- Quick Action Pills inside Card -->
-              <div class="grid grid-cols-3 gap-2 mt-4 pt-3.5 border-t border-white/20">
-                <button onclick="switchAppTab('watch')" class="py-2 rounded-xl bg-white text-[#FA2828] font-extrabold text-xs shadow-sm active:scale-95 transition-transform">
-                  ▶ 광고 적립
+              <!-- KakaoPay Money Card Action Buttons (충전 / 송금 / 후불결제) -->
+              <div class="grid grid-cols-3 gap-2 pt-3.5 border-t border-white/20">
+                <button onclick="switchTab('benefit')" class="py-2.5 rounded-2xl bg-white text-[#FA2828] font-extrabold text-xs shadow-xs active:scale-95 transition-transform">
+                  ▶ 광고충전
                 </button>
-                <button onclick="switchAppTab('pay')" class="py-2 rounded-xl bg-black/20 hover:bg-black/30 text-white font-bold text-xs active:scale-95 transition-transform">
+                <button onclick="switchTab('pay')" class="py-2.5 rounded-2xl bg-black/20 hover:bg-black/30 text-white font-bold text-xs active:scale-95 transition-transform">
                   💳 현장결제
                 </button>
-                <button onclick="runScenario(4)" class="py-2 rounded-xl bg-black/20 hover:bg-black/30 text-white font-bold text-xs active:scale-95 transition-transform">
+                <button onclick="runScenario(4)" class="py-2.5 rounded-2xl bg-black/20 hover:bg-black/30 text-white font-bold text-xs active:scale-95 transition-transform">
                   ⚡ 후불결제
                 </button>
               </div>
             </div>
 
-            <!-- Today's Mandatory Ad Watch Goal Card (오늘의 광고 시청 목표) -->
-            <div class="bg-white rounded-[22px] p-4 shadow-sm border border-slate-200/70">
+            <!-- 2) KakaoPay 4-Icon Quick Shortcut Row -->
+            <div class="kpay-card p-3.5 grid grid-cols-4 gap-2 text-center">
+              <button onclick="openFoldableModal()" class="flex flex-col items-center gap-1 py-1 active:scale-95 transition-transform">
+                <div class="w-11 h-11 rounded-2xl bg-red-50 text-[#FA2828] flex items-center justify-center text-lg">📲</div>
+                <span class="text-xs font-bold text-slate-800">10화면 폴드</span>
+              </button>
+              <button onclick="runScenario(1)" class="flex flex-col items-center gap-1 py-1 active:scale-95 transition-transform">
+                <div class="w-11 h-11 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-lg">⏰</div>
+                <span class="text-xs font-bold text-slate-800">기상알람</span>
+              </button>
+              <button onclick="runScenario(3)" class="flex flex-col items-center gap-1 py-1 active:scale-95 transition-transform">
+                <div class="w-11 h-11 rounded-2xl bg-slate-100 text-slate-800 flex items-center justify-center text-lg">🏫</div>
+                <span class="text-xs font-bold text-slate-800">연세출결</span>
+              </button>
+              <button onclick="switchTab('assets')" class="flex flex-col items-center gap-1 py-1 active:scale-95 transition-transform">
+                <div class="w-11 h-11 rounded-2xl bg-red-50 text-[#FA2828] flex items-center justify-center text-lg">⏳</div>
+                <span class="text-xs font-bold text-slate-800">광고할부</span>
+              </button>
+            </div>
+
+            <!-- 3) Today's Mandatory Ad Watch Goal Card (오늘의 광고 시청 목표) -->
+            <div class="kpay-card p-5">
               <div class="flex items-center justify-between mb-2">
                 <div class="flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-[#FA2828]"></span>
-                  <span class="text-xs font-extrabold text-slate-800">오늘의 광고 시청 목표 (일일 약정)</span>
+                  <span class="text-xs font-extrabold text-slate-400">오늘 갚아야 할 광고 부채</span>
                 </div>
-                <button onclick="switchAppTab('contracts')" class="text-xs font-bold text-[#FA2828]">약정 상세 ›</button>
+                <button onclick="switchTab('assets')" class="text-xs font-bold text-[#FA2828]">약정 상세 ›</button>
               </div>
 
-              <div class="flex items-baseline justify-between mb-2">
-                <div>
-                  <span class="text-xl font-black text-[#FA2828]" id="ui-rem-quota">90분 남았어요</span>
+              <div class="flex items-baseline justify-between mb-2.5">
+                <div class="text-xl font-black text-[#191919]">
+                  오늘 목표까지 <span class="text-[#FA2828]" id="home-rem-quota">90분 남았어요</span>
                 </div>
-                <span class="text-xs text-slate-500">일일 목표 120분 중 <strong class="text-slate-800" id="ui-done-quota">30분 완료</strong></span>
+                <span class="text-xs font-bold text-slate-400" id="home-done-quota">30/120분</span>
               </div>
 
-              <!-- Progress Bar -->
-              <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden mb-2.5">
-                <div id="ui-quota-bar" class="h-full payco-gradient rounded-full transition-all duration-300" style="width: 25%"></div>
+              <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden mb-3">
+                <div id="home-quota-bar" class="h-full bg-[#FA2828] rounded-full transition-all duration-300" style="width: 25%"></div>
               </div>
 
-              <div class="flex items-center justify-between text-xs bg-red-50/80 border border-red-200/70 text-red-900 px-3 py-2 rounded-xl">
-                <span>⚠️ 자정 미이행 시 <strong>일 1% 연체료</strong> 가산</span>
-                <button onclick="watchQuotaQuick(15)" class="font-extrabold text-[#FA2828] underline">-15분 즉시 채우기</button>
+              <div class="bg-[#F5F6F8] rounded-2xl p-3 flex items-center justify-between text-xs">
+                <span class="text-slate-600 font-medium">자정 미이행 시 <strong class="text-[#FA2828]">일 1% 연체료</strong> 가산</span>
+                <button onclick="watchQuotaQuick(15)" class="px-2.5 py-1 rounded-lg bg-[#191919] text-white font-bold text-xs">
+                  -15분 상환
+                </button>
               </div>
             </div>
 
-            <!-- AD Credit Grade Widget -->
-            <div class="bg-white rounded-[22px] p-4 shadow-sm border border-slate-200/70 flex items-center justify-between">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex flex-col items-center justify-center text-[#FA2828]">
-                  <span class="text-xs font-bold leading-none">신용</span>
-                  <span class="text-base font-black leading-tight" id="ui-credit-badge">A+</span>
+            <!-- 4) KakaoPay Credit Score Style Card (내 AD 신용점수) -->
+            <div onclick="switchTab('assets')" class="kpay-card p-4 flex items-center justify-between cursor-pointer active:scale-99 transition-transform">
+              <div class="flex items-center gap-3.5">
+                <div class="w-11 h-11 rounded-2xl bg-red-50 flex flex-col items-center justify-center text-[#FA2828] font-black text-sm" id="home-credit-badge">
+                  A+
                 </div>
                 <div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-sm font-extrabold text-slate-900" id="ui-credit-title">A+ 성실 시청자</span>
-                    <span class="px-2 py-0.5 rounded-full bg-red-100 text-[#D91428] font-bold text-xs" id="ui-credit-score">920점</span>
+                  <div class="text-xs font-bold text-slate-400">나의 AD 시청 신용점수</div>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="text-sm font-black text-[#191919]" id="home-credit-title">성실 시청자 · 920점</span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 font-extrabold text-xs" id="home-recovery-tag">정상</span>
                   </div>
-                  <p class="text-xs text-slate-500 mt-0.5">후불 광고 한도 50,000 AD · 할부 최대 12개월</p>
                 </div>
               </div>
-              <button onclick="switchAppTab('contracts')" class="text-xs font-bold text-slate-400 hover:text-slate-700">관리 ›</button>
+              <span class="text-slate-400 font-bold text-sm">›</span>
             </div>
 
-            <!-- Recent Timeline (오늘 내역) -->
-            <div class="bg-white rounded-[22px] p-4 shadow-sm border border-slate-200/70">
+            <!-- 5) KakaoPay Recent Activity Feed (오늘 내역) -->
+            <div class="kpay-card p-5">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-sm font-extrabold text-slate-900">최근 적립 · 결제 내역</span>
-                <span class="text-xs text-slate-400 font-medium">실시간 연동</span>
+                <span class="text-sm font-extrabold text-[#191919]">최근 시간 거래 내역</span>
+                <span class="text-xs text-slate-400 font-semibold">실시간</span>
               </div>
-              <div class="divide-y divide-slate-100" id="ui-history-list">
+              <div class="divide-y divide-slate-100" id="home-history-list">
                 <div class="py-2.5 flex items-center justify-between text-xs">
-                  <div class="flex items-center gap-2.5">
-                    <span class="w-8 h-8 rounded-full bg-red-100 text-[#FA2828] flex items-center justify-center font-bold">📲</span>
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-red-50 text-[#FA2828] flex items-center justify-center font-bold text-sm">📲</div>
                     <div>
-                      <div class="font-bold text-slate-800">폴더블 멀티뷰 시청 인증</div>
-                      <div class="text-slate-400">08:30 · 퀴즈 정답 적립</div>
+                      <div class="font-extrabold text-[#191919]">폴더블 멀티뷰 시청 인증</div>
+                      <div class="text-slate-400">08:30 · 퀴즈 정답 보상</div>
                     </div>
                   </div>
-                  <span class="font-extrabold text-[#FA2828]">+1,000 AD</span>
+                  <span class="font-black text-[#FA2828]">+1,000 AD</span>
                 </div>
                 <div class="py-2.5 flex items-center justify-between text-xs">
-                  <div class="flex items-center gap-2.5">
-                    <span class="w-8 h-8 rounded-full bg-red-100 text-[#FA2828] flex items-center justify-center font-bold">👕</span>
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-sm">👕</div>
                     <div>
-                      <div class="font-bold text-slate-800">클린토피아 초고속 세탁 광고</div>
+                      <div class="font-extrabold text-[#191919]">클린토피아 초고속 세탁 광고</div>
                       <div class="text-slate-400">08:15 · 일반 광고 2분</div>
                     </div>
                   </div>
-                  <span class="font-extrabold text-[#FA2828]">+200 AD</span>
+                  <span class="font-black text-[#FA2828]">+200 AD</span>
                 </div>
                 <div class="py-2.5 flex items-center justify-between text-xs">
-                  <div class="flex items-center gap-2.5">
-                    <span class="w-8 h-8 rounded-full bg-red-100 text-[#FA2828] flex items-center justify-center font-bold">⏰</span>
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center font-bold text-sm">⏰</div>
                     <div>
-                      <div class="font-bold text-slate-800">기상 알람 해제 광고</div>
-                      <div class="text-slate-400">07:30 · 고정 시간 광고 (15초)</div>
+                      <div class="font-extrabold text-[#191919]">기상 알람 해제 광고</div>
+                      <div class="text-slate-400">07:30 · 고정 15초 광고</div>
                     </div>
                   </div>
-                  <span class="font-extrabold text-[#FA2828]">+100 AD</span>
+                  <span class="font-black text-[#FA2828]">+100 AD</span>
                 </div>
               </div>
             </div>
 
           </section>
 
-          <!-- ==================== TAB 2: 광고 고르기 (BENEFIT FEED) ==================== -->
-          <section id="tab-watch" class="hidden p-4 space-y-3.5">
+          <!-- ==================== TAB 2: 자산 / 약정 (KAKAOPAY ASSETS = AD DEBT) ==================== -->
+          <section id="tab-assets" class="hidden space-y-3.5 pt-1">
             
-            <!-- Top Active Ad Player Card -->
-            <div class="bg-[#1E1E23] rounded-[24px] p-4 text-white shadow-md relative overflow-hidden">
-              <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
-                <span class="flex items-center gap-1.5">
-                  <span class="w-2 h-2 rounded-full bg-[#FA2828] animate-ping"></span>
-                  <span id="player-status-badge" class="text-red-400 font-bold">AI 카메라 시선 추적 대기</span>
-                </span>
-                <span class="font-mono font-bold text-red-400" id="player-timer">00:00</span>
-              </div>
-              <div class="py-3 text-center">
-                <div class="text-xs text-red-400 font-bold mb-1">AD PAY: 시간을 아끼는 중입니다</div>
-                <div class="text-sm font-extrabold text-white" id="player-title">아래 혜택 목록에서 시청할 광고를 선택하세요</div>
-                <p class="text-xs text-zinc-400 mt-1" id="player-subtitle">화면을 응시하는 동안에만 AD 크레딧이 적립됩니다</p>
-              </div>
-              <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mt-2">
-                <div id="player-progress" class="h-full payco-gradient transition-all duration-200" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <!-- Multi-view Banner Button -->
-            <button onclick="openFoldableSheet()" class="w-full p-3.5 rounded-2xl bg-gradient-to-r from-[#FA2828]/10 to-red-600/15 border border-[#FA2828]/30 flex items-center justify-between text-left">
-              <div class="flex items-center gap-2.5">
-                <span class="text-xl">📲</span>
-                <div>
-                  <div class="text-xs font-extrabold text-slate-900">갤럭시 폴드 10화면 동시 시청 모드 열기</div>
-                  <div class="text-xs text-slate-600">주의력 등비수열 적립 (분당 최대 +199.8 AD)</div>
-                </div>
-              </div>
-              <span class="px-2.5 py-1 rounded-lg payco-gradient text-white font-bold text-xs">실행 ›</span>
-            </button>
-
-            <!-- Category Filter Pills -->
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
-              <span class="px-3 py-1.5 rounded-full bg-[#FA2828] text-white font-extrabold shrink-0">추천 전체</span>
-              <span class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold shrink-0">시청 인증 (+1,000 AD)</span>
-              <span class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold shrink-0">고정 15초 (+100 AD)</span>
-              <span class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-700 font-semibold shrink-0">할인쿠폰 포함</span>
-            </div>
-
-            <!-- Ad Feed List -->
-            <div class="space-y-2.5">
-              <!-- Item 1 -->
-              <div class="bg-white rounded-[20px] p-4 border border-slate-200/80 shadow-sm flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-11 h-11 rounded-2xl bg-red-50 text-[#FA2828] flex items-center justify-center text-xl shrink-0">☕</div>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-extrabold text-xs text-slate-900">트레비앙 스페셜 커피</span>
-                      <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold">30초</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-0.5">졸음이 쏟아지는 오후! 임의 위치 확인 버튼</p>
-                  </div>
-                </div>
-                <button onclick="startAdPlayback('트레비앙 스페셜 커피', 50, 3)" class="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 text-[#FA2828] font-extrabold text-xs shrink-0 active:scale-95 transition-all">
-                  +50 AD
+            <!-- Asset & Debt Net Summary -->
+            <div class="kpay-card p-5">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-extrabold text-slate-400">나의 시간 자산 · 광고 약정 현황 (표 3)</span>
+                <button onclick="simulateOverdueDay()" class="px-2.5 py-1 rounded-xl bg-red-50 text-[#FA2828] font-extrabold text-xs hover:bg-red-100">
+                  +1일 연체 시뮬레이션
                 </button>
               </div>
-
-              <!-- Item 2 -->
-              <div class="bg-white rounded-[20px] p-4 border border-slate-200/80 shadow-sm flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-11 h-11 rounded-2xl bg-red-50 text-[#FA2828] flex items-center justify-center text-xl shrink-0">👕</div>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-extrabold text-xs text-slate-900">클린토피아 5분 초고속 세탁</span>
-                      <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold">1분</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-0.5">세탁에 쓰는 시간은 줄이고 나를 위한 시간은 늘리고!</p>
-                  </div>
-                </div>
-                <button onclick="startAdPlayback('클린토피아 5분 초고속 세탁', 100, 4)" class="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 text-[#FA2828] font-extrabold text-xs shrink-0 active:scale-95 transition-all">
-                  +100 AD
-                </button>
+              <div class="text-2xl font-black text-[#191919] mt-1">
+                하루 의무 시청 <span class="text-[#FA2828]" id="asset-total-label">2시간 (120분)</span>
               </div>
+              <p class="text-xs text-slate-500 mt-1">
+                오늘 남은 의무 시청: <strong class="text-[#FA2828]" id="asset-rem-label">1시간 30분</strong> (미이행 시 일 1% 연체료 + 회수 광고 작동)
+              </p>
 
-              <!-- Item 3 (Quiz 1,000 AD) -->
-              <div class="bg-white rounded-[20px] p-4 border-2 border-[#FA2828] shadow-sm flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-11 h-11 rounded-2xl payco-gradient text-white flex items-center justify-center text-xl shrink-0">🎓</div>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-extrabold text-xs text-slate-900">취업 성공 필수 자격증 강의</span>
-                      <span class="px-1.5 py-0.5 rounded bg-red-100 text-[#D91428] text-xs font-extrabold">시청 인증</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-0.5">광고 후 퀴즈 1문제 정답 시 즉시 지급</p>
-                  </div>
-                </div>
-                <button onclick="openQuizModal('취업 성공 필수 자격증 강의', '방금 광고에서 파격 특가 이벤트 종료까지 남은 시간은?', ['단 12시간', '24시간', '7일'], 0, 1000)" class="px-3 py-2 rounded-xl payco-gradient text-white font-black text-xs shrink-0 shadow-sm active:scale-95 transition-all">
-                  +1,000 AD
+              <div class="grid grid-cols-2 gap-2.5 mt-4 pt-3.5 border-t border-slate-100">
+                <button onclick="watchQuotaQuick(15)" class="py-3 rounded-2xl bg-[#FA2828] text-white font-extrabold text-xs shadow-xs">
+                  ▶ 광고 보고 15분 갚기
                 </button>
-              </div>
-
-              <!-- Item 4 -->
-              <div class="bg-white rounded-[20px] p-4 border border-slate-200/80 shadow-sm flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-11 h-11 rounded-2xl bg-red-50 text-[#FA2828] flex items-center justify-center text-xl shrink-0">🛌</div>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-extrabold text-xs text-slate-900">프리미엄 숙면 베개 솔루션</span>
-                      <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold">2분</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-0.5">당신의 소중한 수면 시간을 지켜드립니다 (+할인쿠폰)</p>
-                  </div>
-                </div>
-                <button onclick="startAdPlayback('프리미엄 숙면 베개 솔루션', 200, 4)" class="px-3.5 py-2 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 text-[#FA2828] font-extrabold text-xs shrink-0 active:scale-95 transition-all">
-                  +200 AD
-                </button>
-              </div>
-
-              <!-- Item 5 (Quiz 1,000 AD) -->
-              <div class="bg-white rounded-[20px] p-4 border-2 border-[#FA2828] shadow-sm flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-11 h-11 rounded-2xl payco-gradient text-white flex items-center justify-center text-xl shrink-0">✈️</div>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-extrabold text-xs text-slate-900">주말엔 나를 위한 특별 여행</span>
-                      <span class="px-1.5 py-0.5 rounded bg-red-100 text-[#D91428] text-xs font-extrabold">시청 인증</span>
-                    </div>
-                    <p class="text-xs text-slate-500 mt-0.5">시청 완료 후 상품명 맞추면 즉시 지급</p>
-                  </div>
-                </div>
-                <button onclick="openQuizModal('주말엔 나를 위한 특별 여행', '광고에서 제안한 반복되는 일상을 벗어나는 방법은?', ['나만을 위한 주말 특별 여행', '야간 아르바이트', '계속 공부하기'], 0, 1000)" class="px-3 py-2 rounded-xl payco-gradient text-white font-black text-xs shrink-0 shadow-sm active:scale-95 transition-all">
-                  +1,000 AD
+                <button onclick="payOffAllContractsCash()" class="py-3 rounded-2xl bg-[#F5F6F8] text-[#191919] font-extrabold text-xs">
+                  💵 원화로 일시 상환
                 </button>
               </div>
             </div>
-          </section>
 
-          <!-- ==================== TAB 3: 결제 (CHECKOUT & BNPL) ==================== -->
-          <section id="tab-pay" class="hidden p-4 space-y-3.5">
-            
-            <!-- Store & Product Switcher -->
-            <div class="bg-white rounded-[22px] p-4 shadow-sm border border-slate-200/80">
-              <div class="flex items-center justify-between mb-2.5">
-                <span class="text-xs font-extrabold text-[#FA2828]">AD PAY 제휴 매장 결제</span>
-                <div class="flex gap-1 bg-slate-100 p-1 rounded-xl">
-                  <button onclick="switchPayProduct('coffee')" id="prod-btn-coffee" class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-[#FA2828] text-white shadow-sm">☕ 커피 1잔</button>
-                  <button onclick="switchPayProduct('tablet')" id="prod-btn-tablet" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600">💻 태블릿 할부</button>
-                </div>
+            <!-- Table 3 Active Contracts List in KakaoPay Asset Style -->
+            <div class="kpay-card p-5 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-extrabold text-[#191919]">진행 중인 광고 할부 · 후불 약정</span>
+                <span class="text-xs font-bold text-[#FA2828]">총 4건</span>
               </div>
 
-              <h3 class="text-base font-black text-slate-900 mb-3" id="pay-prod-title">아이스 아메리카노 1잔 (캠퍼스 카페)</h3>
-
-              <!-- Dual Price Tag (원화 vs 광고 시간) -->
-              <div class="grid grid-cols-2 gap-3 bg-red-50/70 p-3.5 rounded-2xl border border-red-200">
-                <div>
-                  <div class="text-xs text-slate-500 font-semibold">현금 가격</div>
-                  <div class="text-lg font-black text-slate-900" id="pay-prod-krw">10,000원</div>
-                </div>
-                <div class="border-l border-red-200 pl-3">
-                  <div class="text-xs text-[#FA2828] font-extrabold">AD 시간 가격</div>
-                  <div class="text-lg font-black text-[#FA2828]" id="pay-prod-time">광고 100분</div>
-                  <div class="text-xs text-slate-500 font-semibold" id="pay-prod-ad">10,000 AD</div>
-                </div>
-              </div>
-
-              <div class="mt-3 flex items-center justify-between text-xs px-1">
-                <span class="text-slate-500">나의 보유 AD 크레딧</span>
-                <span class="font-extrabold text-[#FA2828]" id="pay-my-balance">8,000 AD</span>
-              </div>
-            </div>
-
-            <!-- 4 Payment Options Comparison -->
-            <div class="space-y-2">
-              <div onclick="choosePayOption('cash')" id="opt-card-cash" class="bg-white rounded-2xl p-3.5 border border-slate-200 cursor-pointer transition-all">
+              <!-- 1. 태블릿 광고 할부 -->
+              <div class="p-3.5 rounded-2xl bg-[#F5F6F8] space-y-1.5">
                 <div class="flex items-center justify-between">
-                  <span class="font-extrabold text-xs text-slate-800">1. 현금 전액 결제</span>
-                  <span class="text-xs font-bold text-slate-700">10,000원</span>
+                  <span class="font-extrabold text-xs text-[#191919]">💻 태블릿 광고 할부 (12개월)</span>
+                  <span class="font-black text-xs text-[#FA2828]">하루 26분</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-0.5">추가로 시청해야 할 광고 시간 없음 (0분)</p>
+                <div class="text-xs text-slate-500">현금 90만 원 + 광고 157시간 30분 (할부 수수료 5% 포함)</div>
+                <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-[#191919]" style="width: 65%"></div>
+                </div>
               </div>
 
-              <div onclick="choosePayOption('ad')" id="opt-card-ad" class="bg-white rounded-2xl p-3.5 border border-slate-200 cursor-pointer transition-all">
+              <!-- 2. 교통 정기권 광고 할부 -->
+              <div class="p-3.5 rounded-2xl bg-[#F5F6F8] space-y-1.5">
                 <div class="flex items-center justify-between">
-                  <span class="font-extrabold text-xs text-slate-800">2. AD 크레딧 전액 결제</span>
-                  <span class="text-xs font-bold text-[#FA2828]" id="opt-ad-badge">2,000 AD 부족</span>
+                  <span class="font-extrabold text-xs text-[#191919]">🚇 교통 정기권 광고 할부 (절반)</span>
+                  <span class="font-black text-xs text-[#FA2828]">하루 20분</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-0.5">보유 AD로 즉시 차감 (일반 광고 100분 가치)</p>
+                <div class="text-xs text-slate-500">통학 지하철·버스 이동 중 시청 약정</div>
+                <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-[#191919]" style="width: 50%"></div>
+                </div>
               </div>
 
-              <div onclick="choosePayOption('mix')" id="opt-card-mix" class="bg-white rounded-2xl p-3.5 border border-slate-200 cursor-pointer transition-all">
+              <!-- 3. 휴대폰 광고형 요금제 -->
+              <div class="p-3.5 rounded-2xl bg-[#F5F6F8] space-y-1.5">
                 <div class="flex items-center justify-between">
-                  <span class="font-extrabold text-xs text-slate-800">3. 섞어 내기 (AD + 현금)</span>
-                  <span class="text-xs font-bold text-slate-700">8,000 AD + 2,000원</span>
+                  <span class="font-extrabold text-xs text-[#191919]">📱 휴대폰 광고형 요금제 (폴드10)</span>
+                  <span class="font-black text-xs text-emerald-600">하루 10분 (완료)</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-0.5">보유 크레딧을 모두 쓰고 부족한 금액만 원화 결제</p>
-              </div>
-
-              <!-- Highlighted Option 4: 후불 광고 결제 -->
-              <div onclick="choosePayOption('bnpl')" id="opt-card-bnpl" class="bg-red-50/90 rounded-2xl p-4 border-2 border-[#FA2828] cursor-pointer transition-all shadow-sm">
-                <div class="flex items-center justify-between">
-                  <span class="font-black text-xs text-slate-900">4. 후불 광고 결제 (나중에 볼 광고)</span>
-                  <span class="px-2 py-0.5 rounded-full payco-gradient text-white font-extrabold text-xs">수수료 +5%</span>
-                </div>
-                <div class="text-xs text-red-950 mt-2 space-y-1" id="opt-bnpl-desc">
-                  <div>· 보유 <strong>8,000 AD</strong> 사용 + 부족분 <strong>2,000 AD</strong> 외상 결제</div>
-                  <div>· 후불 수수료 5%(100 AD) 포함 → <strong>24시간 내 광고 21분 의무 시청</strong></div>
-                </div>
-              </div>
-            </div>
-
-            <button onclick="confirmPayment()" id="pay-cta-btn" class="w-full py-4 rounded-2xl payco-gradient text-white font-black text-sm shadow-md active:scale-98 transition-all">
-              후불 광고로 결제하기 (미상환 +21분 약정)
-            </button>
-          </section>
-
-          <!-- ==================== TAB 4: 약정 현황 (CONTRACTS & OVERDUE) ==================== -->
-          <section id="tab-contracts" class="hidden p-4 space-y-3.5">
-            
-            <div class="bg-white rounded-[22px] p-4 shadow-sm border border-slate-200/80">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-slate-500">주인공 A의 일일 광고 부채 합계 (표 3)</span>
-                <button onclick="simulateOverdueDay()" class="px-2.5 py-1 rounded-lg bg-red-100 text-[#D91428] font-extrabold text-xs hover:bg-red-200">
-                  +1일 연체 테스트
-                </button>
-              </div>
-              <div class="grid grid-cols-2 gap-3 my-2">
-                <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/60">
-                  <div class="text-xs text-slate-400">하루 총 약정</div>
-                  <div class="text-lg font-black text-slate-900" id="contract-total-label">2시간 (120분)</div>
-                </div>
-                <div class="p-3 rounded-2xl bg-red-50 border border-red-200">
-                  <div class="text-xs text-[#FA2828] font-bold">남은 의무 시청</div>
-                  <div class="text-lg font-black text-[#FA2828]" id="contract-rem-label">1시간 30분</div>
-                </div>
-              </div>
-              <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-100">
-                <span class="text-slate-500">현금 일시 상환 (1분=100 AD):</span>
-                <button onclick="payOffAllContractsCash()" class="font-extrabold text-[#FA2828] underline">원화로 즉시 완납하기</button>
-              </div>
-            </div>
-
-            <!-- 4 Contract Items from Report Table 3 -->
-            <div class="space-y-2.5">
-              <div class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-sm">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="font-extrabold text-xs text-slate-900">💻 태블릿 광고 할부 (12개월)</span>
-                  <span class="text-xs font-black text-[#FA2828]">하루 몫 26분</span>
-                </div>
-                <p class="text-xs text-slate-500 mb-2">현금 90만 원 + 광고 157시간 30분 (할부 수수료 5% 포함)</p>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-[#FA2828]" style="width: 65%"></div>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-sm">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="font-extrabold text-xs text-slate-900">🚇 교통 정기권 광고 할부 (절반)</span>
-                  <span class="text-xs font-black text-[#FA2828]">하루 몫 20분</span>
-                </div>
-                <p class="text-xs text-slate-500 mb-2">통학 지하철·버스 이동 중 시청 약정</p>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
-                  <div class="h-full bg-[#FA2828]" style="width: 50%"></div>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-2xl p-3.5 border border-slate-200/80 shadow-sm">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="font-extrabold text-xs text-slate-900">📱 휴대폰 광고형 요금제</span>
-                  <span class="text-xs font-black text-emerald-600">하루 몫 10분 (완료)</span>
-                </div>
-                <p class="text-xs text-slate-500 mb-2">갤럭시 폴드10 통신비 할인 약정</p>
-                <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="text-xs text-slate-500">통신비 감면 조건 일일 필수 할당량</div>
+                <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
                   <div class="h-full bg-emerald-500" style="width: 100%"></div>
                 </div>
               </div>
 
-              <div class="bg-red-50/80 rounded-2xl p-3.5 border border-red-300 shadow-sm">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="font-extrabold text-xs text-red-950">☕ 학식·커피 후불 광고 결제</span>
-                  <span class="text-xs font-black text-[#FA2828]" id="contract-bnpl-mins">하루 몫 약 64분</span>
+              <!-- 4. 학식·커피 후불 광고 결제 -->
+              <div class="p-3.5 rounded-2xl bg-red-50 border border-red-200 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-extrabold text-xs text-red-950">☕ 학식·커피 후불 광고 결제 (외상)</span>
+                  <span class="font-black text-xs text-[#FA2828]" id="asset-bnpl-daily">하루 약 64분</span>
                 </div>
-                <p class="text-xs text-red-800 mb-2">24시간 내 미상환 시 일 1% 연체료 + 알람/출결 회수 광고 작동</p>
+                <div class="text-xs text-red-800">24시간 내 의무 시청 · 미이행 시 알람/출결 회수 광고 강제 재생</div>
                 <div class="w-full h-1.5 bg-red-200 rounded-full overflow-hidden">
                   <div class="h-full bg-[#FA2828]" style="width: 25%"></div>
                 </div>
               </div>
             </div>
 
-            <button onclick="watchQuotaQuick(15)" class="w-full py-4 rounded-2xl payco-gradient text-white font-black text-sm shadow-md active:scale-98 transition-all">
-              지금 광고 보고 의무 시간 채우기 (-15분)
-            </button>
           </section>
 
-        </div>
+          <!-- ==================== TAB 3: 결제 (KAKAOPAY BARCODE/QR CHECKOUT + BNPL) ==================== -->
+          <section id="tab-pay" class="hidden space-y-3.5 pt-1">
+            
+            <!-- KakaoPay Signature Barcode / QR Card -->
+            <div class="kpay-card p-5 border-2 border-[#FA2828] relative overflow-hidden">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded-md bg-[#FA2828] text-white font-black text-xs">매장결제</span>
+                  <span class="text-xs font-extrabold text-[#191919]">캠퍼스 카페 · 제휴 가맹점</span>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400">1 AD = 1원</span>
+              </div>
 
-        <!-- 3. BOTTOM NAVIGATION BAR -->
-        <nav class="bg-white border-t border-slate-200 px-2 pt-2 safe-bottom grid grid-cols-4 gap-1 text-center shrink-0 z-20">
-          <button onclick="switchAppTab('home')" id="bnav-home" class="flex flex-col items-center py-1 rounded-xl text-[#FA2828] font-extrabold transition-colors">
+              <!-- Barcode Box -->
+              <div class="bg-[#F5F6F8] rounded-2xl p-4 flex flex-col items-center justify-center relative overflow-hidden border border-slate-200/80">
+                <div class="w-full h-14 css-barcode rounded"></div>
+                <div class="w-full h-0.5 bg-[#FA2828] absolute top-4 animate-scanline shadow-sm"></div>
+                <div class="text-xs font-mono font-bold text-slate-500 mt-2 tracking-widest">2045  8000  2100  9450</div>
+              </div>
+
+              <!-- Product Switcher (커피 10,000원 vs 태블릿 180만 원) -->
+              <div class="mt-4 pt-3.5 border-t border-slate-100">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-slate-400">결제할 상품 (이중 가격표)</span>
+                  <div class="flex gap-1 bg-slate-100 p-1 rounded-xl">
+                    <button onclick="switchPayProduct('coffee')" id="prod-btn-coffee" class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-[#191919] text-white">☕ 커피 1잔</button>
+                    <button onclick="switchPayProduct('tablet')" id="prod-btn-tablet" class="px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600">💻 태블릿 할부</button>
+                  </div>
+                </div>
+
+                <div class="text-base font-black text-[#191919] mb-2.5" id="pay-prod-title">아이스 아메리카노 1잔</div>
+
+                <!-- Dual Price Tag (원화 가격 vs 광고 시청 시간 가격) -->
+                <div class="grid grid-cols-2 gap-2.5 bg-red-50/70 p-3 rounded-2xl border border-red-200">
+                  <div>
+                    <div class="text-xs text-slate-500 font-semibold">원화 가격</div>
+                    <div class="text-lg font-black text-[#191919]" id="pay-prod-krw">10,000원</div>
+                  </div>
+                  <div class="border-l border-red-200 pl-3">
+                    <div class="text-xs text-[#FA2828] font-extrabold">시간 가격 (10,000 AD)</div>
+                    <div class="text-lg font-black text-[#FA2828]" id="pay-prod-time">일반 광고 100분</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- KakaoPay Payment Method Selector (현금 / AD / 섞어내기 / 후불 광고 결제) -->
+            <div class="kpay-card p-4 space-y-2">
+              <div class="flex items-center justify-between px-1 mb-1">
+                <span class="text-xs font-extrabold text-slate-500">결제 수단 선택 (보유: <strong class="text-[#FA2828]" id="pay-my-balance">8,000 AD</strong>)</span>
+              </div>
+
+              <!-- 1. 후불 광고 결제 (Default Selected) -->
+              <div onclick="choosePayOption('bnpl')" id="opt-card-bnpl" class="p-3.5 rounded-2xl bg-red-50/90 border-2 border-[#FA2828] cursor-pointer transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-black text-xs text-[#191919]">⚡ 후불 광고 결제 (나중에 볼 광고)</span>
+                  <span class="px-2 py-0.5 rounded-full bg-[#FA2828] text-white font-extrabold text-xs">수수료 +5%</span>
+                </div>
+                <div class="text-xs text-red-950 mt-1.5 space-y-0.5" id="opt-bnpl-desc">
+                  <div>· 보유 <strong>8,000 AD</strong> 차감 + 부족분 <strong>2,000 AD</strong> 외상</div>
+                  <div>· 수수료 5%(100 AD) 합산 → <strong>24시간 내 광고 21분 의무 시청</strong></div>
+                </div>
+              </div>
+
+              <!-- 2. 섞어 내기 -->
+              <div onclick="choosePayOption('mix')" id="opt-card-mix" class="p-3 rounded-2xl bg-[#F5F6F8] border border-transparent cursor-pointer transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-extrabold text-xs text-[#191919]">🔄 섞어 내기 (AD 머니 + 원화)</span>
+                  <span class="text-xs font-bold text-slate-700">8,000 AD + 2,000원</span>
+                </div>
+              </div>
+
+              <!-- 3. AD 전액 -->
+              <div onclick="choosePayOption('ad')" id="opt-card-ad" class="p-3 rounded-2xl bg-[#F5F6F8] border border-transparent cursor-pointer transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-extrabold text-xs text-[#191919]">🅿️ AD 크레딧 전액 결제</span>
+                  <span class="text-xs font-extrabold text-[#FA2828]" id="opt-ad-badge">2,000 AD 부족</span>
+                </div>
+              </div>
+
+              <!-- 4. 현금 전액 -->
+              <div onclick="choosePayOption('cash')" id="opt-card-cash" class="p-3 rounded-2xl bg-[#F5F6F8] border border-transparent cursor-pointer transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="font-extrabold text-xs text-[#191919]">💵 현금 전액 결제 (광고 0분)</span>
+                  <span class="text-xs font-bold text-slate-700">10,000원</span>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="confirmPayment()" id="pay-cta-btn" class="w-full py-4 rounded-2xl bg-[#FA2828] hover:bg-[#D91428] text-white font-black text-sm shadow-lg active:scale-98 transition-all">
+              후불 광고로 결제하기 (미상환 +21분 약정)
+            </button>
+
+          </section>
+
+          <!-- ==================== TAB 4: 혜택 / 광고 고르기 (KAKAOPAY BENEFIT = WATCH ADS) ==================== -->
+          <section id="tab-benefit" class="hidden space-y-3.5 pt-1">
+            
+            <!-- Live Eye-Tracked Video Player Box -->
+            <div class="bg-[#191919] rounded-[26px] p-5 text-white shadow-md relative overflow-hidden">
+              <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-[#FA2828] animate-ping"></span>
+                  <span id="player-status-badge" class="text-red-400 font-bold">AI 카메라 시선 추적 중</span>
+                </span>
+                <span class="font-mono font-bold text-red-400" id="player-timer">00:00</span>
+              </div>
+              <div class="py-2.5 text-center">
+                <div class="text-xs text-red-400 font-extrabold mb-1">AD PAY: 시간을 아끼는 중입니다</div>
+                <div class="text-sm font-black text-white" id="player-title">아래 맞춤형 광고를 선택해 시간을 화폐로 바꾸세요</div>
+                <p class="text-xs text-zinc-400 mt-1" id="player-subtitle">눈을 떼거나 졸면 '시청 이탈'로 적립이 중단됩니다</p>
+              </div>
+              <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mt-2">
+                <div id="player-progress" class="h-full bg-[#FA2828] transition-all duration-200" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <!-- 10-Screen Galaxy Fold Multi-View Banner -->
+            <div onclick="openFoldableModal()" class="kpay-card p-4 border-2 border-[#191919] flex items-center justify-between cursor-pointer active:scale-98 transition-transform">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-[#191919] text-white flex items-center justify-center text-xl">📲</div>
+                <div>
+                  <div class="text-xs font-black text-[#191919]">열 번 접히는 갤럭시 폴드 10화면 멀티뷰</div>
+                  <div class="text-xs text-slate-500">등비수열 적립 (100→50→25... 분당 최대 199.8 AD)</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1.5 rounded-xl bg-[#FA2828] text-white font-black text-xs shrink-0">펼치기 ›</span>
+            </div>
+
+            <!-- Ad List (KakaoPay Benefit Mission Style) -->
+            <div class="kpay-card p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-extrabold text-[#191919]">맞춤형 광고 보고 AD 적립</span>
+                <span class="text-xs text-slate-400 font-semibold">시청 인증 1,000 AD</span>
+              </div>
+
+              <!-- Ad 1: Quiz 1,000 AD -->
+              <div class="p-3.5 rounded-2xl bg-red-50/70 border border-red-200 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-[#FA2828] text-white flex items-center justify-center text-lg shrink-0">🎓</div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-extrabold text-xs text-[#191919]">취업 성공 필수 자격증 강의</span>
+                      <span class="px-1.5 py-0.5 rounded bg-red-100 text-[#D91428] text-xs font-black">시청인증</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">시청 후 퀴즈 1문제 정답 시 즉시 지급</p>
+                  </div>
+                </div>
+                <button onclick="openQuizModal('취업 성공 필수 자격증 강의', '방금 광고에서 파격 특가 이벤트 종료까지 남은 시간은?', ['단 12시간', '24시간', '7일'], 0, 1000)" class="px-3 py-2 rounded-xl bg-[#FA2828] text-white font-black text-xs shrink-0 shadow-xs">
+                  +1,000 AD
+                </button>
+              </div>
+
+              <!-- Ad 2 -->
+              <div class="p-3.5 rounded-2xl bg-[#F5F6F8] flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-white text-slate-800 flex items-center justify-center text-lg shrink-0">☕</div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-extrabold text-xs text-[#191919]">트레비앙 스페셜 커피</span>
+                      <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 text-xs font-bold">30초</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">졸음이 쏟아지는 오후! 임의 위치 확인 버튼</p>
+                  </div>
+                </div>
+                <button onclick="startAdPlayback('트레비앙 스페셜 커피', 50, 3)" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-[#FA2828] font-black text-xs shrink-0">
+                  +50 AD
+                </button>
+              </div>
+
+              <!-- Ad 3 -->
+              <div class="p-3.5 rounded-2xl bg-[#F5F6F8] flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-white text-slate-800 flex items-center justify-center text-lg shrink-0">👕</div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-extrabold text-xs text-[#191919]">클린토피아 5분 초고속 세탁</span>
+                      <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 text-xs font-bold">1분</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">세탁에 쓰는 시간은 줄이고 나를 위한 시간은 늘리고!</p>
+                  </div>
+                </div>
+                <button onclick="startAdPlayback('클린토피아 5분 초고속 세탁', 100, 4)" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-[#FA2828] font-black text-xs shrink-0">
+                  +100 AD
+                </button>
+              </div>
+
+              <!-- Ad 4 -->
+              <div class="p-3.5 rounded-2xl bg-[#F5F6F8] flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-white text-slate-800 flex items-center justify-center text-lg shrink-0">🛌</div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-extrabold text-xs text-[#191919]">프리미엄 숙면 베개 솔루션</span>
+                      <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 text-xs font-bold">2분</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">당신의 소중한 수면 시간을 지켜드립니다 (+할인쿠폰)</p>
+                  </div>
+                </div>
+                <button onclick="startAdPlayback('프리미엄 숙면 베개 솔루션', 200, 4)" class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-[#FA2828] font-black text-xs shrink-0">
+                  +200 AD
+                </button>
+              </div>
+
+              <!-- Ad 5: Quiz 1,000 AD -->
+              <div class="p-3.5 rounded-2xl bg-red-50/70 border border-red-200 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-2xl bg-[#FA2828] text-white flex items-center justify-center text-lg shrink-0">✈️</div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="font-extrabold text-xs text-[#191919]">주말엔 나를 위한 특별 여행</span>
+                      <span class="px-1.5 py-0.5 rounded bg-red-100 text-[#D91428] text-xs font-black">시청인증</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">광고 완주 후 퀴즈 정답 시 즉시 지급</p>
+                  </div>
+                </div>
+                <button onclick="openQuizModal('주말엔 나를 위한 특별 여행', '광고에서 제안한 반복되는 일상을 벗어나는 방법은?', ['나만을 위한 주말 특별 여행', '야간 아르바이트', '계속 공부하기'], 0, 1000)" class="px-3 py-2 rounded-xl bg-[#FA2828] text-white font-black text-xs shrink-0 shadow-xs">
+                  +1,000 AD
+                </button>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- ==================== TAB 5: 전체 메뉴 (KAKAOPAY ALL MENU = SCENARIOS & SYSTEM) ==================== -->
+          <section id="tab-all" class="hidden space-y-3.5 pt-1">
+            <div class="kpay-card p-5 space-y-3">
+              <div class="text-xs font-extrabold text-[#FA2828]">디지털스토리텔링 4조 (팀 404)</div>
+              <h3 class="text-base font-black text-[#191919]">〈AD PAY: 더 나은 삶을 위해〉 전체 메뉴</h3>
+              <p class="text-xs text-slate-500 leading-relaxed">
+                "시간을 아껴 주겠다는 광고가 시간을 가져가고, 잠을 지켜 주겠다는 광고가 잠을 미루게 만든다."
+              </p>
+
+              <div class="space-y-2 pt-2">
+                <button onclick="runScenario(1)" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] hover:bg-red-50 text-left text-xs font-extrabold flex justify-between items-center">
+                  <span>⏰ 시나리오 #1 · 기상 알람 (고정 15초 광고)</span>
+                  <span class="text-[#FA2828]">+100 AD ›</span>
+                </button>
+                <button onclick="openFoldableModal()" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] hover:bg-red-50 text-left text-xs font-extrabold flex justify-between items-center">
+                  <span>📲 시나리오 #2 · 등교 준비 (10화면 갤럭시 폴드)</span>
+                  <span class="text-[#FA2828]">+1,000 AD ›</span>
+                </button>
+                <button onclick="runScenario(3)" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] hover:bg-red-50 text-left text-xs font-extrabold flex justify-between items-center">
+                  <span>🏫 시나리오 #3 · 강의실 전자출결 & 지각 삭제</span>
+                  <span class="text-[#FA2828]">실행 ›</span>
+                </button>
+                <button onclick="runScenario(4)" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] hover:bg-red-50 text-left text-xs font-extrabold flex justify-between items-center">
+                  <span>☕ 시나리오 #4 · 캠퍼스 카페 커피 후불 결제</span>
+                  <span class="text-[#FA2828]">+21분 약정 ›</span>
+                </button>
+                <button onclick="runScenario(5)" class="w-full p-3.5 rounded-2xl bg-red-50 border border-red-200 text-left text-xs font-extrabold text-red-900 flex justify-between items-center">
+                  <span>🌙 시나리오 #5 · 야간 90분 알림 & 시청 이탈 경고음</span>
+                  <span class="text-[#FA2828]">🚨 실행 ›</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+        </main>
+
+        <!-- 3. KAKAOPAY 5-TAB BOTTOM NAVIGATION BAR (With Center Floating Barcode Pay Button) -->
+        <nav class="bg-white border-t border-slate-200/80 px-2 pt-1.5 safe-bottom grid grid-cols-5 items-end text-center shrink-0 z-30 relative">
+          <button onclick="switchTab('home')" id="bnav-home" class="flex flex-col items-center py-1 text-[#191919] font-extrabold transition-colors">
             <span class="text-lg leading-none">🏠</span>
             <span class="text-xs mt-1">홈</span>
           </button>
-          <button onclick="switchAppTab('watch')" id="bnav-watch" class="flex flex-col items-center py-1 rounded-xl text-slate-400 font-semibold transition-colors">
-            <span class="text-lg leading-none">▶️</span>
-            <span class="text-xs mt-1">광고 고르기</span>
+          <button onclick="switchTab('assets')" id="bnav-assets" class="flex flex-col items-center py-1 text-slate-400 font-semibold transition-colors">
+            <span class="text-lg leading-none">⏳</span>
+            <span class="text-xs mt-1">자산·약정</span>
           </button>
-          <button onclick="switchAppTab('pay')" id="bnav-pay" class="flex flex-col items-center py-1 rounded-xl text-slate-400 font-semibold transition-colors">
-            <span class="text-lg leading-none">💳</span>
-            <span class="text-xs mt-1">결제</span>
+
+          <!-- Center Floating KakaoPay Barcode Button (PAYCO Red) -->
+          <div class="flex flex-col items-center justify-end">
+            <button onclick="switchTab('pay')" id="bnav-pay" class="-mt-5 w-13 h-13 rounded-full payco-money-card text-white flex flex-col items-center justify-center shadow-lg border-4 border-white active:scale-95 transition-transform">
+              <span class="text-base leading-none font-black">|||</span>
+              <span class="text-[10px] font-extrabold leading-none mt-0.5">결제</span>
+            </button>
+          </div>
+
+          <button onclick="switchTab('benefit')" id="bnav-benefit" class="flex flex-col items-center py-1 text-slate-400 font-semibold transition-colors">
+            <span class="text-lg leading-none">🎁</span>
+            <span class="text-xs mt-1">혜택·광고</span>
           </button>
-          <button onclick="switchAppTab('contracts')" id="bnav-contracts" class="flex flex-col items-center py-1 rounded-xl text-slate-400 font-semibold transition-colors">
-            <span class="text-lg leading-none">📋</span>
-            <span class="text-xs mt-1">약정 현황</span>
+          <button onclick="switchTab('all')" id="bnav-all" class="flex flex-col items-center py-1 text-slate-400 font-semibold transition-colors">
+            <span class="text-lg leading-none">☰</span>
+            <span class="text-xs mt-1">전체</span>
           </button>
         </nav>
 
-        <!-- ==================== IN-APP MODALS & SCENARIO OVERLAYS ==================== -->
+        <!-- ==================== IN-APP SCENARIO MODALS ==================== -->
 
-        <!-- Mobile Scenario Quick-Select Bottom Sheet -->
+        <!-- Scenario Quick-Select Bottom Sheet -->
         <div id="sheet-scenarios" class="hidden absolute inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end">
-          <div class="bg-white rounded-t-[28px] p-5 space-y-3 animate-slide-up">
+          <div class="bg-white rounded-t-[30px] p-5 space-y-3 animate-slide-up">
             <div class="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
                 <span class="text-xs font-extrabold text-[#FA2828]">보고서 4장 스토리보드</span>
-                <h3 class="text-base font-black text-slate-900">미래 시나리오 에피소드 실행</h3>
+                <h3 class="text-base font-black text-[#191919]">미래 시나리오 에피소드 즉시 실행</h3>
               </div>
               <button onclick="toggleScenarioSheet()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold text-sm">✕</button>
             </div>
             <div class="space-y-2 text-xs">
-              <button onclick="toggleScenarioSheet(); runScenario(1);" class="w-full p-3 rounded-2xl bg-red-50 border border-red-200 text-left font-bold text-slate-900 flex justify-between items-center">
+              <button onclick="toggleScenarioSheet(); runScenario(1);" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] text-left font-extrabold text-[#191919] flex justify-between items-center">
                 <span>⏰ #1. 방 안 — 기상 알람 (15초 고정시간 광고)</span>
-                <span class="text-[#FA2828] font-extrabold">+100 AD</span>
+                <span class="text-[#FA2828]">+100 AD</span>
               </button>
-              <button onclick="toggleScenarioSheet(); openFoldableSheet();" class="w-full p-3 rounded-2xl bg-red-50 border border-red-200 text-left font-bold text-slate-900 flex justify-between items-center">
+              <button onclick="toggleScenarioSheet(); openFoldableModal();" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] text-left font-extrabold text-[#191919] flex justify-between items-center">
                 <span>📲 #2. 등교 준비 — 10화면 갤럭시 폴드 멀티뷰</span>
-                <span class="text-[#FA2828] font-extrabold">+1,000 AD</span>
+                <span class="text-[#FA2828]">+1,000 AD</span>
               </button>
-              <button onclick="toggleScenarioSheet(); runScenario(3);" class="w-full p-3 rounded-2xl bg-red-50 border border-red-200 text-left font-bold text-slate-900 flex justify-between items-center">
+              <button onclick="toggleScenarioSheet(); runScenario(3);" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] text-left font-extrabold text-[#191919] flex justify-between items-center">
                 <span>🏫 #3. 강의실 — 전자출결 광고 & 지각 기록 삭제</span>
-                <span class="text-[#FA2828] font-extrabold">출석하기</span>
+                <span class="text-[#FA2828]">출석하기</span>
               </button>
-              <button onclick="toggleScenarioSheet(); runScenario(4);" class="w-full p-3 rounded-2xl bg-red-50 border border-red-200 text-left font-bold text-slate-900 flex justify-between items-center">
+              <button onclick="toggleScenarioSheet(); runScenario(4);" class="w-full p-3.5 rounded-2xl bg-[#F5F6F8] text-left font-extrabold text-[#191919] flex justify-between items-center">
                 <span>☕ #4. 캠퍼스 카페 — 아메리카노 후불 광고 결제</span>
-                <span class="text-[#FA2828] font-extrabold">+21분 약정</span>
+                <span class="text-[#FA2828]">+21분 약정</span>
               </button>
-              <button onclick="toggleScenarioSheet(); runScenario(5);" class="w-full p-3 rounded-2xl bg-rose-100 border border-rose-300 text-left font-bold text-rose-950 flex justify-between items-center">
+              <button onclick="toggleScenarioSheet(); runScenario(5);" class="w-full p-3.5 rounded-2xl bg-red-50 border border-red-200 text-left font-extrabold text-red-900 flex justify-between items-center">
                 <span>🌙 #5. 방 안 — 야간 90분 알림 & 수면 시청 이탈 경고</span>
-                <span class="text-[#D91428] font-extrabold">🚨 경고음</span>
+                <span class="text-[#FA2828]">🚨 경고음</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Scenario #2: 10-Screen Foldable Multi-View Full Overlay inside Phone -->
+        <!-- Scenario #2: 10-Screen Galaxy Fold Multi-View Overlay -->
         <div id="modal-foldable" class="hidden absolute inset-0 z-40 bg-zinc-950 text-white p-4 flex flex-col justify-between overflow-y-auto">
           <div>
             <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
               <div>
                 <span class="text-xs font-extrabold text-red-400">시나리오 #2 · 열 번 접히는 갤럭시 폴드</span>
-                <h3 class="text-sm font-black text-white">AD PAY MULTI-VIEW (10개 동시 시청)</h3>
+                <h3 class="text-sm font-black text-white">AD PAY MULTI-VIEW (10화면 동시 시청)</h3>
               </div>
               <button onclick="closeOverlays()" class="px-2.5 py-1 rounded-lg bg-zinc-800 text-xs text-zinc-300">닫기 ✕</button>
             </div>
@@ -687,12 +782,11 @@
                 <div class="text-red-300 font-bold">주의력 분산 등비수열 적립 (100→50→25...)</div>
                 <div class="text-zinc-400">10개 화면 총합: 분당 최대 199.8 AD</div>
               </div>
-              <button onclick="triggerMobileFoldQuizzes()" class="px-2.5 py-1.5 rounded-xl payco-gradient text-white font-black text-xs shrink-0">
-                ⚡ 전체 문제 풀기
+              <button onclick="triggerMobileFoldQuizzes()" class="px-2.5 py-1.5 rounded-xl bg-[#FA2828] text-white font-black text-xs shrink-0">
+                ⚡ 전체 문제 띄우기
               </button>
             </div>
 
-            <!-- 10 Mini Screens Grid (2x5 on Mobile) -->
             <div id="mobile-fold-grid" class="grid grid-cols-2 gap-2"></div>
           </div>
 
@@ -753,7 +847,7 @@
                 </p>
               </div>
               <p class="text-xs text-zinc-400 text-center italic">"아, 지금 출석 못 하면 지각인데…."</p>
-              <button onclick="nextAttendanceStep()" class="w-full py-4 rounded-2xl payco-gradient text-white font-black text-xs shadow-lg">
+              <button onclick="nextAttendanceStep()" class="w-full py-4 rounded-2xl bg-[#FA2828] text-white font-black text-xs shadow-lg">
                 광고 끝까지 시청하고 [출석하기] 누르기
               </button>
             </div>
@@ -805,7 +899,6 @@
               <p class="text-xs text-zinc-400">당신의 소중한 수면 시간을 지켜드립니다! 프리미엄 숙면 솔루션!</p>
             </div>
 
-            <!-- Red Flashing Gaze Alert -->
             <div id="night-alert-banner" class="hidden p-4 rounded-2xl bg-[#FA2828] text-white text-center space-y-1 animate-blink shadow-2xl">
               <div class="text-base font-black">🚨 시청 이탈 감지 (경고음 삐-!)</div>
               <div class="text-xs font-bold">안구 감김(졸음) 판정 — 광고 시청이 중단되었습니다.</div>
@@ -813,7 +906,7 @@
           </div>
 
           <div class="space-y-2">
-            <button onclick="triggerNightSleepAlert()" id="night-sleep-trigger" class="w-full py-4 rounded-2xl payco-gradient text-white font-black text-xs shadow-lg">
+            <button onclick="triggerNightSleepAlert()" id="night-sleep-trigger" class="w-full py-4 rounded-2xl bg-[#FA2828] text-white font-black text-xs shadow-lg">
               😴 졸음을 참지 못하고 잠들기 (시청 이탈 경고음 작동)
             </button>
             <button onclick="closeOverlays()" class="w-full py-2 text-xs text-zinc-400">화면 닫기</button>
@@ -848,11 +941,11 @@
           <p class="text-xs text-zinc-400">첫 화면 100 AD, 두 번째 50 AD, 세 번째 25 AD... 10개 화면을 켜도 분당 최대 199.8 AD가 한계입니다.</p>
         </div>
         <div class="flex items-center gap-3">
-          <button onclick="triggerDesktopFoldQuizzes()" class="px-4 py-2.5 rounded-xl payco-gradient text-white font-black text-xs shadow">
+          <button onclick="triggerDesktopFoldQuizzes()" class="px-4 py-2.5 rounded-xl bg-[#FA2828] text-white font-black text-xs shadow">
             ⚡ 10개 화면 동시 퀴즈 인증 띄우기
           </button>
           <button onclick="setDesktopMode('app')" class="px-3.5 py-2.5 rounded-xl bg-zinc-800 text-white text-xs font-bold">
-            ← 모바일 앱 뷰로
+            ← 카카오페이 앱 뷰로
           </button>
         </div>
       </div>
@@ -864,11 +957,11 @@
     <div id="view-figma-container" class="hidden w-full max-w-7xl space-y-5 px-4 text-white">
       <div class="bg-zinc-950 border border-white/10 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <span class="px-2.5 py-0.5 rounded-full bg-[#FA2828]/20 text-red-400 text-xs font-bold">Figma Design System · PAYCO Red (#FA2828)</span>
-          <h2 class="text-lg font-black mt-1">AD PAY 4대 핵심 화면 피그마 캔버스 (PAYCO 레드 × 네이버페이 구조)</h2>
-          <p class="text-xs text-zinc-400">우측의 [📋 피그마 붙여넣기용 SVG 복사] 버튼을 누른 뒤, 열려 있는 피그마 파일(AD-PAY)에 Ctrl+V / Cmd+V로 바로 붙여넣으면 편집 가능한 벡터 프레임으로 생성됩니다!</p>
+          <span class="px-2.5 py-0.5 rounded-full bg-[#FA2828]/20 text-red-400 text-xs font-bold">Figma Design System · KakaoPay UX × PAYCO Red</span>
+          <h2 class="text-lg font-black mt-1">AD pay 4대 핵심 화면 피그마 캔버스</h2>
+          <p class="text-xs text-zinc-400">우측의 [📋 피그마 붙여넣기용 SVG 복사] 버튼을 누른 뒤 피그마 파일에 붙여넣으면 편집 가능한 벡터 프레임으로 생성됩니다.</p>
         </div>
-        <button onclick="copyFigmaSvg()" class="px-4 py-2.5 rounded-xl payco-gradient text-white font-black text-xs shadow-lg">
+        <button onclick="copyFigmaSvg()" class="px-4 py-2.5 rounded-xl bg-[#FA2828] text-white font-black text-xs shadow-lg">
           📋 피그마(Figma)에 바로 붙여넣기용 SVG 복사
         </button>
       </div>
@@ -877,99 +970,97 @@
         <!-- Artboard 1 -->
         <div class="bg-zinc-950 border border-white/10 rounded-3xl p-4 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-mono font-bold text-red-400 mb-2">01 · 홈 (PAYCO Red Home)</div>
-            <div class="bg-[#F3F5F7] rounded-2xl p-3.5 space-y-3">
-              <div class="bg-[#1E1E23] text-white p-3 rounded-xl flex justify-between items-center">
-                <span class="font-black text-sm text-[#FA2828]">P AD PAY</span>
-                <span class="text-xs text-emerald-400">● 시선인증</span>
+            <div class="text-xs font-mono font-bold text-red-400 mb-2">01 · 홈 (KakaoPay Home)</div>
+            <div class="bg-[#F5F6F8] rounded-2xl p-3.5 space-y-2.5">
+              <div class="flex justify-between items-center px-1">
+                <span class="font-black text-base text-[#191919]">AD pay</span>
+                <span class="text-xs font-bold text-emerald-600">● 시선ON</span>
               </div>
-              <div class="payco-gradient text-white p-4 rounded-2xl">
-                <div class="text-xs text-red-100">AD 크레딧 포인트</div>
-                <div class="text-2xl font-black">8,000 AD</div>
-                <div class="text-xs mt-1 text-red-100">1 AD = 1원 · 광고 80분 가치</div>
+              <div class="payco-money-card text-white p-4 rounded-2xl">
+                <div class="text-xs text-red-100">AD 페이머니 (1 AD = 1원)</div>
+                <div class="text-2xl font-black mt-0.5">8,000 AD</div>
+                <div class="text-xs text-red-100 mt-1">일반 광고 80분 가치</div>
               </div>
-              <div class="bg-white p-3 rounded-xl border border-slate-200">
+              <div class="bg-white p-3 rounded-2xl">
                 <div class="text-xs text-slate-400 font-bold">오늘의 광고 시청 목표</div>
                 <div class="text-base font-black text-[#FA2828]">90분 남았어요</div>
               </div>
-              <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center">
-                <span class="text-xs font-extrabold">AD 신용 등급</span>
+              <div class="bg-white p-3 rounded-2xl flex justify-between items-center">
+                <span class="text-xs font-extrabold">AD 신용점수</span>
                 <span class="text-xs font-black text-[#FA2828]">A+ (920점)</span>
               </div>
             </div>
           </div>
-          <button onclick="setDesktopMode('app'); switchAppTab('home');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">인터랙티브 열기 →</button>
+          <button onclick="setDesktopMode('app'); switchTab('home');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">열기 →</button>
         </div>
 
         <!-- Artboard 2 -->
         <div class="bg-zinc-950 border border-white/10 rounded-3xl p-4 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-mono font-bold text-red-400 mb-2">02 · 광고 고르기 (Benefit Feed)</div>
-            <div class="bg-[#F3F5F7] rounded-2xl p-3.5 space-y-2.5">
-              <div class="bg-[#1E1E23] text-white p-3 rounded-xl text-center">
-                <div class="text-xs text-red-400 font-bold">AD PAY: 시간을 아끼는 중입니다</div>
-                <div class="text-xs text-zinc-400 font-mono mt-0.5">00:15 / 01:00</div>
+            <div class="text-xs font-mono font-bold text-red-400 mb-2">02 · 혜택·광고 (Ad Feed)</div>
+            <div class="bg-[#F5F6F8] rounded-2xl p-3.5 space-y-2.5 text-xs">
+              <div class="bg-[#191919] text-white p-3 rounded-2xl text-center">
+                <div class="text-red-400 font-bold">AD PAY: 시간을 아끼는 중입니다</div>
+                <div class="text-zinc-400 font-mono mt-0.5">00:15 / 01:00</div>
               </div>
-              <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
-                <div><div class="font-extrabold">트레비앙 커피</div><div class="text-slate-400">30초 · 확인버튼</div></div>
-                <span class="font-black text-[#FA2828]">+50 AD</span>
+              <div class="bg-white p-3 rounded-2xl border-2 border-[#FA2828] flex justify-between items-center">
+                <div><div class="font-extrabold">취업 자격증 강의</div><div class="text-[#FA2828] font-bold">시청 인증 퀴즈</div></div>
+                <span class="font-black text-[#FA2828]">+1,000 AD</span>
               </div>
-              <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
+              <div class="bg-white p-3 rounded-2xl flex justify-between items-center">
                 <div><div class="font-extrabold">클린토피아 5분 세탁</div><div class="text-slate-400">1분 · 일반광고</div></div>
                 <span class="font-black text-[#FA2828]">+100 AD</span>
               </div>
-              <div class="bg-white p-3 rounded-xl border-2 border-[#FA2828] flex justify-between items-center text-xs">
-                <div><div class="font-extrabold">취업 자격증 특강</div><div class="text-[#FA2828] font-bold">시청 인증 퀴즈</div></div>
-                <span class="font-black text-[#FA2828]">+1,000 AD</span>
+              <div class="bg-white p-3 rounded-2xl flex justify-between items-center">
+                <div><div class="font-extrabold">트레비앙 커피</div><div class="text-slate-400">30초 · 확인버튼</div></div>
+                <span class="font-black text-[#FA2828]">+50 AD</span>
               </div>
             </div>
           </div>
-          <button onclick="setDesktopMode('app'); switchAppTab('watch');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">인터랙티브 열기 →</button>
+          <button onclick="setDesktopMode('app'); switchTab('benefit');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">열기 →</button>
         </div>
 
         <!-- Artboard 3 -->
         <div class="bg-zinc-950 border border-white/10 rounded-3xl p-4 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-mono font-bold text-red-400 mb-2">03 · 결제 (Dual Price & BNPL)</div>
-            <div class="bg-[#F3F5F7] rounded-2xl p-3.5 space-y-2.5 text-xs">
-              <div class="bg-white p-3 rounded-xl border border-slate-200">
-                <div class="font-extrabold mb-1">아이스 아메리카노 1잔</div>
-                <div class="grid grid-cols-2 gap-2 bg-red-50 p-2 rounded-lg text-center">
-                  <div><div class="text-slate-400">원화</div><div class="font-black">10,000원</div></div>
-                  <div><div class="text-[#FA2828]">시간 가격</div><div class="font-black text-[#FA2828]">광고 100분</div></div>
-                </div>
+            <div class="text-xs font-mono font-bold text-red-400 mb-2">03 · 매장결제 (Barcode & BNPL)</div>
+            <div class="bg-[#F5F6F8] rounded-2xl p-3.5 space-y-2.5 text-xs">
+              <div class="bg-white p-3 rounded-2xl border-2 border-[#FA2828]">
+                <div class="h-10 css-barcode rounded mb-2"></div>
+                <div class="font-extrabold">아이스 아메리카노 1잔</div>
+                <div class="text-[#FA2828] font-black mt-0.5">10,000원 / 광고 100분</div>
               </div>
-              <div class="bg-red-50 p-3 rounded-xl border-2 border-[#FA2828]">
-                <div class="font-black text-red-950">● 후불 광고 결제 (+5%)</div>
-                <div class="text-red-800 mt-1">8,000 AD 차감 + 24시간 내 광고 21분 의무 시청</div>
+              <div class="bg-red-50 p-3 rounded-2xl border border-[#FA2828]">
+                <div class="font-black text-[#191919]">⚡ 후불 광고 결제 (+5%)</div>
+                <div class="text-red-800 mt-1">8,000 AD 차감 + 24시간 내 광고 21분</div>
               </div>
-              <div class="py-2.5 rounded-xl payco-gradient text-white text-center font-black">후불 광고로 결제하기</div>
+              <div class="py-2.5 rounded-2xl bg-[#FA2828] text-white text-center font-black">후불 광고로 결제하기</div>
             </div>
           </div>
-          <button onclick="setDesktopMode('app'); switchAppTab('pay');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">인터랙티브 열기 →</button>
+          <button onclick="setDesktopMode('app'); switchTab('pay');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">열기 →</button>
         </div>
 
         <!-- Artboard 4 -->
         <div class="bg-zinc-950 border border-white/10 rounded-3xl p-4 flex flex-col justify-between">
           <div>
-            <div class="text-xs font-mono font-bold text-red-400 mb-2">04 · 약정 현황 (Ad Debt)</div>
-            <div class="bg-[#F3F5F7] rounded-2xl p-3.5 space-y-2 text-xs">
-              <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between">
-                <div><div class="text-slate-400">오늘 목표</div><div class="font-black text-sm">2시간</div></div>
-                <div class="text-right"><div class="text-[#FA2828]">남은 시간</div><div class="font-black text-sm text-[#FA2828]">1시간 30분</div></div>
+            <div class="text-xs font-mono font-bold text-red-400 mb-2">04 · 자산·약정 (Ad Debt)</div>
+            <div class="bg-[#F5F6F8] rounded-2xl p-3.5 space-y-2 text-xs">
+              <div class="bg-white p-3 rounded-2xl flex justify-between">
+                <div><div class="text-slate-400">오늘 총 약정</div><div class="font-black text-sm">2시간</div></div>
+                <div class="text-right"><div class="text-[#FA2828]">남은 의무</div><div class="font-black text-sm text-[#FA2828]">1시간 30분</div></div>
               </div>
-              <div class="bg-white p-2.5 rounded-xl border border-slate-200 flex justify-between">
-                <span>태블릿 광고 할부</span><span class="font-black text-[#FA2828]">26분/일</span>
+              <div class="bg-white p-2.5 rounded-2xl flex justify-between">
+                <span>💻 태블릿 광고 할부</span><span class="font-black text-[#FA2828]">26분/일</span>
               </div>
-              <div class="bg-white p-2.5 rounded-xl border border-slate-200 flex justify-between">
-                <span>교통 정기권 할부</span><span class="font-black text-[#FA2828]">20분/일</span>
+              <div class="bg-white p-2.5 rounded-2xl flex justify-between">
+                <span>🚇 교통 정기권 할부</span><span class="font-black text-[#FA2828]">20분/일</span>
               </div>
-              <div class="bg-red-50 p-2.5 rounded-xl border border-red-300 flex justify-between">
-                <span>학식·커피 후불 결제</span><span class="font-black text-[#FA2828]">약 1시간</span>
+              <div class="bg-red-50 p-2.5 rounded-2xl border border-red-200 flex justify-between">
+                <span>☕ 학식·커피 후불</span><span class="font-black text-[#FA2828]">약 1시간</span>
               </div>
             </div>
           </div>
-          <button onclick="setDesktopMode('app'); switchAppTab('contracts');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">인터랙티브 열기 →</button>
+          <button onclick="setDesktopMode('app'); switchTab('assets');" class="mt-3 w-full py-2 rounded-xl bg-[#FA2828]/20 text-red-300 font-bold text-xs">열기 →</button>
         </div>
       </div>
     </div>
@@ -982,8 +1073,8 @@
       totalQuota: 120,
       remQuota: 90,
       creditScore: 920,
-      creditTitle: 'A+ 성실 시청자',
       creditBadge: 'A+',
+      creditTitle: '성실 시청자 · 920점',
       payProduct: 'coffee',
       payOption: 'bnpl',
       timer: null
@@ -1020,21 +1111,20 @@
 
     function syncUI() {
       const balStr = state.adBalance.toLocaleString() + ' AD';
-      document.getElementById('ui-ad-balance').textContent = balStr;
+      document.getElementById('home-balance').textContent = balStr;
       document.getElementById('pay-my-balance').textContent = balStr;
 
       const done = Math.max(0, state.totalQuota - state.remQuota);
-      document.getElementById('ui-rem-quota').textContent = `${state.remQuota}분 남았어요`;
-      document.getElementById('ui-done-quota').textContent = `${done}분 완료`;
+      document.getElementById('home-rem-quota').textContent = `${state.remQuota}분 남았어요`;
+      document.getElementById('home-done-quota').textContent = `${done}/${state.totalQuota}분`;
       const pct = Math.min(100, Math.round((done / state.totalQuota) * 100));
-      document.getElementById('ui-quota-bar').style.width = `${pct}%`;
+      document.getElementById('home-quota-bar').style.width = `${pct}%`;
 
       const h = Math.floor(state.remQuota / 60);
       const m = state.remQuota % 60;
-      document.getElementById('contract-rem-label').textContent = h > 0 ? `${h}시간 ${m}분` : `${m}분`;
-      document.getElementById('ui-credit-badge').textContent = state.creditBadge;
-      document.getElementById('ui-credit-title').textContent = state.creditTitle;
-      document.getElementById('ui-credit-score').textContent = `${state.creditScore}점`;
+      document.getElementById('asset-rem-label').textContent = h > 0 ? `${h}시간 ${m}분` : `${m}분`;
+      document.getElementById('home-credit-badge').textContent = state.creditBadge;
+      document.getElementById('home-credit-title').textContent = state.creditTitle;
 
       const needed = state.payProduct === 'coffee' ? 10000 : 1800000;
       const badge = document.getElementById('opt-ad-badge');
@@ -1057,31 +1147,33 @@
     }
 
     function prependHistory(title, sub, amount, isPlus = true) {
-      const list = document.getElementById('ui-history-list');
+      const list = document.getElementById('home-history-list');
       const div = document.createElement('div');
       div.className = 'py-2.5 flex items-center justify-between text-xs';
       div.innerHTML = `
-        <div class="flex items-center gap-2.5">
-          <span class="w-8 h-8 rounded-full ${isPlus ? 'bg-red-100 text-[#FA2828]' : 'bg-slate-100 text-slate-700'} flex items-center justify-center font-bold">${isPlus ? 'P' : '💳'}</span>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-2xl ${isPlus ? 'bg-red-50 text-[#FA2828]' : 'bg-slate-100 text-slate-700'} flex items-center justify-center font-bold text-sm">${isPlus ? 'P' : '💳'}</div>
           <div>
-            <div class="font-bold text-slate-800">${title}</div>
+            <div class="font-extrabold text-[#191919]">${title}</div>
             <div class="text-slate-400">${sub}</div>
           </div>
         </div>
-        <span class="font-extrabold ${isPlus ? 'text-[#FA2828]' : 'text-slate-900'}">${amount}</span>
+        <span class="font-black ${isPlus ? 'text-[#FA2828]' : 'text-[#191919]'}">${amount}</span>
       `;
       list.prepend(div);
     }
 
-    function switchAppTab(tab) {
+    function switchTab(tab) {
       closeOverlays();
-      ['home', 'watch', 'pay', 'contracts'].forEach(t => {
+      ['home', 'assets', 'pay', 'benefit', 'all'].forEach(t => {
         document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tab);
-        const btn = document.getElementById(`bnav-${t}`);
-        if (t === tab) {
-          btn.className = 'flex flex-col items-center py-1 rounded-xl text-[#FA2828] font-extrabold transition-colors';
-        } else {
-          btn.className = 'flex flex-col items-center py-1 rounded-xl text-slate-400 font-semibold transition-colors';
+        if (t !== 'pay') {
+          const btn = document.getElementById(`bnav-${t}`);
+          if (btn) {
+            btn.className = t === tab
+              ? 'flex flex-col items-center py-1 text-[#191919] font-extrabold transition-colors'
+              : 'flex flex-col items-center py-1 text-slate-400 font-semibold transition-colors';
+          }
         }
       });
     }
@@ -1114,15 +1206,14 @@
       ['modal-foldable', 'modal-alarm', 'modal-attendance', 'modal-night', 'modal-quiz', 'sheet-scenarios'].forEach(id => {
         document.getElementById(id).classList.add('hidden');
       });
-      document.getElementById('eye-dot').className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
-      document.getElementById('eye-text').textContent = 'AI 시선 인증 중';
-      document.getElementById('eye-status-pill').className = 'flex items-center gap-1 text-emerald-400 font-medium';
+      document.getElementById('eye-dot').className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
+      document.getElementById('eye-label').textContent = '시선인증 ON';
+      document.getElementById('eye-label').className = 'text-xs font-bold text-slate-700';
     }
 
     function runScenario(n) {
       closeOverlays();
       if (n === 1) {
-        document.getElementById('app-clock').textContent = '07:30';
         document.getElementById('modal-alarm').classList.remove('hidden');
         playBeep(660, 0.2, 'square');
         let s = 4;
@@ -1141,31 +1232,28 @@
             clearInterval(state.timer);
             box.textContent = '시청 완료! 알람 해제 가능 (+100 AD)';
             btn.disabled = false;
-            btn.className = 'w-full py-4 rounded-2xl payco-gradient text-white font-black text-xs shadow-lg cursor-pointer';
+            btn.className = 'w-full py-4 rounded-2xl bg-[#FA2828] text-white font-black text-xs shadow-lg cursor-pointer';
             btn.textContent = '⏰ 알람 해제하고 +100 AD 적립 받기';
           }
         }, 750);
         logEvent('시나리오 #1', '07:30 기상 고정 시간 광고(15초)가 울립니다.');
       }
       else if (n === 2) {
-        openFoldableSheet();
+        openFoldableModal();
       }
       else if (n === 3) {
-        document.getElementById('app-clock').textContent = '09:05';
         document.getElementById('modal-attendance').classList.remove('hidden');
         document.getElementById('att-box-1').classList.remove('hidden');
         document.getElementById('att-box-2').classList.add('hidden');
         logEvent('시나리오 #3', '연세대학교 전자출결 앱 접속 — 전면 광고가 출석을 가로막습니다.');
       }
       else if (n === 4) {
-        document.getElementById('app-clock').textContent = '13:35';
-        switchAppTab('pay');
+        switchTab('pay');
         switchPayProduct('coffee');
         choosePayOption('bnpl');
-        logEvent('시나리오 #4', '캠퍼스 카페에서 2,000 AD 부족으로 21분 후불 광고 결제를 선택합니다.');
+        logEvent('시나리오 #4', '캠퍼스 카페에서 2,000 AD 부족으로 21분 후불 광고 바코드 결제를 진행합니다.');
       }
       else if (n === 5) {
-        document.getElementById('app-clock').textContent = '23:10';
         document.getElementById('modal-night').classList.remove('hidden');
         document.getElementById('night-alert-banner').classList.add('hidden');
         document.getElementById('night-sleep-trigger').classList.remove('hidden');
@@ -1202,8 +1290,8 @@
       document.getElementById('night-alert-banner').classList.remove('hidden');
       document.getElementById('night-sleep-trigger').classList.add('hidden');
       document.getElementById('eye-dot').className = 'w-2 h-2 rounded-full bg-[#FA2828] animate-ping';
-      document.getElementById('eye-text').textContent = '시청 이탈 감지!';
-      document.getElementById('eye-status-pill').className = 'flex items-center gap-1 text-red-400 font-extrabold';
+      document.getElementById('eye-label').textContent = '시청이탈!';
+      document.getElementById('eye-label').className = 'text-xs font-extrabold text-[#FA2828]';
       logEvent('시청 이탈 감지', '🚨 졸음으로 인한 시선 이탈이 감지되어 광고 시청이 강제 중단되었습니다.');
     }
 
@@ -1233,7 +1321,7 @@
           state.remQuota = Math.max(0, state.remQuota - 1);
           syncUI();
           badge.textContent = '적립 완료!';
-          sEl.textContent = `+${reward} AD 크레딧이 통합 지갑에 적립되었습니다!`;
+          sEl.textContent = `+${reward} AD가 페이머니에 적립되었습니다!`;
           prependHistory(title, '방금 · 일반 광고 시청', `+${reward} AD`, true);
           logEvent('광고 적립', `${title} 시청 완료 (+${reward} AD)`);
         }
@@ -1269,7 +1357,7 @@
       });
     }
 
-    function openFoldableSheet() {
+    function openFoldableModal() {
       renderFoldGrids();
       document.getElementById('modal-foldable').classList.remove('hidden');
       logEvent('폴더블 멀티뷰', '열 번 접히는 갤럭시 폴드 10화면 동시 시청 모드 활성화');
@@ -1318,7 +1406,7 @@
         const reward = Math.max(2, Math.round(1000 / Math.pow(2, idx)));
         document.querySelectorAll(`.fold-q-btn-${idx}`).forEach(b => {
           b.textContent = `❓ "${ad.ans}" (+${reward} AD)`;
-          b.className = `fold-q-btn-${idx} mt-2 w-full py-1.5 px-2 rounded-xl payco-gradient text-white font-black text-xs animate-pulse`;
+          b.className = `fold-q-btn-${idx} mt-2 w-full py-1.5 px-2 rounded-xl bg-[#FA2828] text-white font-black text-xs animate-pulse`;
         });
       });
     }
@@ -1332,23 +1420,21 @@
       const b1 = document.getElementById('prod-btn-coffee');
       const b2 = document.getElementById('prod-btn-tablet');
       if (key === 'coffee') {
-        b1.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-[#FA2828] text-white shadow-sm';
+        b1.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-[#191919] text-white';
         b2.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600';
-        document.getElementById('pay-prod-title').textContent = '아이스 아메리카노 1잔 (캠퍼스 카페)';
+        document.getElementById('pay-prod-title').textContent = '아이스 아메리카노 1잔';
         document.getElementById('pay-prod-krw').textContent = '10,000원';
-        document.getElementById('pay-prod-time').textContent = '광고 100분';
-        document.getElementById('pay-prod-ad').textContent = '10,000 AD';
+        document.getElementById('pay-prod-time').textContent = '일반 광고 100분';
         document.getElementById('opt-bnpl-desc').innerHTML = `
-          <div>· 보유 <strong>8,000 AD</strong> 사용 + 부족분 <strong>2,000 AD</strong> 외상 결제</div>
-          <div>· 후불 수수료 5%(100 AD) 포함 → <strong>24시간 내 광고 21분 의무 시청</strong></div>
+          <div>· 보유 <strong>8,000 AD</strong> 차감 + 부족분 <strong>2,000 AD</strong> 외상</div>
+          <div>· 수수료 5%(100 AD) 합산 → <strong>24시간 내 광고 21분 의무 시청</strong></div>
         `;
       } else {
-        b2.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-[#FA2828] text-white shadow-sm';
+        b2.className = 'px-2.5 py-1 rounded-lg text-xs font-extrabold bg-[#191919] text-white';
         b1.className = 'px-2.5 py-1 rounded-lg text-xs font-semibold text-slate-600';
         document.getElementById('pay-prod-title').textContent = '프로 태블릿 2045 (12개월 광고 할부)';
         document.getElementById('pay-prod-krw').textContent = '1,800,000원';
         document.getElementById('pay-prod-time').textContent = '현금 90만 + 157.5시간';
-        document.getElementById('pay-prod-ad').textContent = '하루 약 26분씩 12개월 약정';
         document.getElementById('opt-bnpl-desc').innerHTML = `
           <div>· 현금 <strong>900,000원</strong> 선결제 + 나머지 <strong>900,000 AD</strong> 12개월 할부</div>
           <div>· 할부 수수료 5% 포함 총 <strong>157시간 30분 (하루 26분)</strong> 의무 시청</div>
@@ -1360,12 +1446,12 @@
 
     function choosePayOption(opt) {
       state.payOption = opt;
-      ['cash', 'ad', 'mix', 'bnpl'].forEach(o => {
+      ['bnpl', 'mix', 'ad', 'cash'].forEach(o => {
         const card = document.getElementById(`opt-card-${o}`);
         if (o === opt) {
-          card.className = 'bg-red-50/90 rounded-2xl p-4 border-2 border-[#FA2828] cursor-pointer transition-all shadow-sm';
+          card.className = 'p-3.5 rounded-2xl bg-red-50/90 border-2 border-[#FA2828] cursor-pointer transition-all';
         } else {
-          card.className = 'bg-white rounded-2xl p-3.5 border border-slate-200 cursor-pointer transition-all';
+          card.className = 'p-3 rounded-2xl bg-[#F5F6F8] border border-transparent cursor-pointer transition-all';
         }
       });
       const cta = document.getElementById('pay-cta-btn');
@@ -1392,7 +1478,7 @@
         syncUI();
         prependHistory('캠퍼스 카페 아메리카노 (후불)', '보유 AD 차감 + 미상환 21분 추가', `-${used.toLocaleString()} AD`, false);
         logEvent('후불 결제 완료', '후불 광고 결제 완료! 미상환 광고 21분 / 21분이 약정에 추가되었습니다.');
-        switchAppTab('contracts');
+        switchTab('assets');
       } else if (state.payOption === 'ad') {
         const needed = state.payProduct === 'coffee' ? 10000 : 1800000;
         if (state.adBalance < needed) {
@@ -1403,11 +1489,11 @@
         state.adBalance -= needed;
         syncUI();
         prependHistory('아이스 아메리카노 (AD 결제)', '일시불 결제', `-${needed.toLocaleString()} AD`, false);
-        switchAppTab('home');
+        switchTab('home');
       } else {
         playBeep(880, 0.2, 'sine');
         prependHistory('제휴 매장 결제 완료', '현금/복합 결제', '완료', true);
-        switchAppTab('home');
+        switchTab('home');
       }
     }
 
@@ -1424,9 +1510,11 @@
       state.remQuota += fee;
       state.creditScore = Math.max(300, state.creditScore - 50);
       state.creditBadge = 'C-';
-      state.creditTitle = 'C- 연체 주의 (회수광고 작동)';
+      state.creditTitle = `연체 주의 · ${state.creditScore}점`;
+      document.getElementById('home-recovery-tag').textContent = '회수광고 작동';
+      document.getElementById('home-recovery-tag').className = 'px-2 py-0.5 rounded-full bg-red-100 text-[#FA2828] font-extrabold text-xs';
       syncUI();
-      logEvent('연체료 및 회수광고', `기한 미이행으로 1% 연체료(+${fee}분) 부과 및 AD 신용 등급 강등!`);
+      logEvent('연체료 및 회수광고', `기한 미이행으로 1% 연체료(+${fee}분) 부과 및 회수 광고 작동!`);
     }
 
     function payOffAllContractsCash() {
@@ -1444,86 +1532,90 @@
       state.remQuota = 90;
       state.creditScore = 920;
       state.creditBadge = 'A+';
-      state.creditTitle = 'A+ 성실 시청자';
-      document.getElementById('app-clock').textContent = '09:41';
-      switchAppTab('home');
+      state.creditTitle = '성실 시청자 · 920점';
+      document.getElementById('home-recovery-tag').textContent = '정상';
+      document.getElementById('home-recovery-tag').className = 'px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 font-extrabold text-xs';
+      switchTab('home');
       syncUI();
     }
 
     function copyFigmaSvg() {
       const svgCode = `<svg width="1620" height="812" viewBox="0 0 1620 812" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g id="01_AD_PAY_Home_PAYCO_Red" transform="translate(0,0)">
-    <rect width="375" height="812" rx="36" fill="#F3F5F7"/>
-    <rect width="375" height="88" fill="#1E1E23"/>
-    <circle cx="34" cy="54" r="14" fill="#FA2828"/>
-    <text x="29" y="59" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="14">P</text>
-    <text x="56" y="60" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="20">AD PAY</text>
-    <rect x="20" y="108" width="335" height="168" rx="24" fill="url(#payco_grad)"/>
-    <text x="40" y="142" fill="#FEE2E2" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">AD 크레딧 포인트 (1 AD = 1원)</text>
-    <text x="40" y="186" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="34">8,000 AD</text>
-    <rect x="40" y="216" width="142" height="38" rx="12" fill="white"/>
-    <text x="72" y="240" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="800" font-size="13">▶ 광고 적립</text>
-    <rect x="193" y="216" width="142" height="38" rx="12" fill="#991B1B"/>
-    <text x="225" y="240" fill="white" font-family="Pretendard, sans-serif" font-weight="800" font-size="13">💳 현장결제</text>
-    <rect x="20" y="294" width="335" height="130" rx="22" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="326" fill="#64748B" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">오늘의 광고 시청 목표 (일일 약정)</text>
-    <text x="40" y="362" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="24">90분 남았어요</text>
-    <rect x="40" y="382" width="295" height="12" rx="6" fill="#F1F5F9"/>
-    <rect x="40" y="382" width="85" height="12" rx="6" fill="#FA2828"/>
-    <rect x="20" y="442" width="335" height="88" rx="22" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="476" fill="#64748B" font-family="Pretendard, sans-serif" font-weight="700" font-size="12">나의 AD 신용 등급</text>
-    <text x="40" y="504" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="900" font-size="18">A+ 성실 시청자 (920점)</text>
+  <g id="01_KakaoPay_AD_PAY_Home" transform="translate(0,0)">
+    <rect width="375" height="812" rx="40" fill="#F5F6F8"/>
+    <circle cx="34" cy="48" r="13" fill="#FA2828"/>
+    <text x="29" y="53" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="13">P</text>
+    <text x="54" y="54" fill="#191919" font-family="Pretendard, sans-serif" font-weight="900" font-size="21">AD pay</text>
+    <rect x="20" y="74" width="335" height="34" rx="14" fill="#191919"/>
+    <text x="36" y="96" fill="white" font-family="Pretendard, sans-serif" font-weight="700" font-size="12">LIVE · AD PAY: 시간을 아끼는 중입니다 (1분=100 AD)</text>
+    <rect x="20" y="122" width="335" height="176" rx="26" fill="url(#payco_grad)"/>
+    <text x="42" y="154" fill="#FEE2E2" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">AD 페이머니 (1 AD = 1원)</text>
+    <text x="42" y="198" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="34">8,000 AD</text>
+    <text x="42" y="220" fill="#FEE2E2" font-family="Pretendard, sans-serif" font-weight="600" font-size="12">⏱ 일반 광고 80분 가치</text>
+    <rect x="42" y="238" width="90" height="40" rx="14" fill="white"/>
+    <text x="56" y="263" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="800" font-size="12">▶ 광고충전</text>
+    <rect x="142" y="238" width="90" height="40" rx="14" fill="#991B1B"/>
+    <text x="160" y="263" fill="white" font-family="Pretendard, sans-serif" font-weight="800" font-size="12">💳 현장결제</text>
+    <rect x="242" y="238" width="90" height="40" rx="14" fill="#991B1B"/>
+    <text x="260" y="263" fill="white" font-family="Pretendard, sans-serif" font-weight="800" font-size="12">⚡ 후불결제</text>
+    <rect x="20" y="314" width="335" height="132" rx="24" fill="white"/>
+    <text x="42" y="346" fill="#8E8E93" font-family="Pretendard, sans-serif" font-weight="700" font-size="12">오늘 갚아야 할 광고 부채</text>
+    <text x="42" y="380" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="22">오늘 목표까지 90분 남았어요</text>
+    <rect x="42" y="400" width="291" height="12" rx="6" fill="#F1F5F9"/>
+    <rect x="42" y="400" width="80" height="12" rx="6" fill="#FA2828"/>
+    <rect x="20" y="462" width="335" height="82" rx="24" fill="white"/>
+    <text x="42" y="496" fill="#8E8E93" font-family="Pretendard, sans-serif" font-weight="700" font-size="12">나의 AD 시청 신용점수</text>
+    <text x="42" y="522" fill="#191919" font-family="Pretendard, sans-serif" font-weight="900" font-size="17">A+ 성실 시청자 · 920점</text>
   </g>
-  <g id="02_AD_PAY_Watch_PAYCO_Red" transform="translate(415,0)">
-    <rect width="375" height="812" rx="36" fill="#F3F5F7"/>
-    <rect x="20" y="40" width="335" height="140" rx="24" fill="#1E1E23"/>
-    <text x="72" y="105" fill="#F87171" font-family="Pretendard, sans-serif" font-weight="800" font-size="14">AD PAY: 시간을 아끼는 중입니다</text>
-    <text x="145" y="135" fill="white" font-family="Pretendard, sans-serif" font-weight="700" font-size="16">00:15 / 01:00</text>
-    <rect x="20" y="200" width="335" height="82" rx="20" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="236" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">트레비앙 스페셜 커피 (30초)</text>
-    <text x="275" y="246" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="15">+50 AD</text>
-    <rect x="20" y="296" width="335" height="82" rx="20" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="332" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">클린토피아 5분 초고속 세탁 (1분)</text>
-    <text x="268" y="342" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="15">+100 AD</text>
-    <rect x="20" y="392" width="335" height="88" rx="20" fill="white" stroke="#FA2828" stroke-width="2"/>
-    <text x="40" y="430" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">취업 필수 자격증 강의 (시청 인증)</text>
-    <text x="255" y="440" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="15">+1,000 AD</text>
+  <g id="02_KakaoPay_AD_PAY_Benefit" transform="translate(415,0)">
+    <rect width="375" height="812" rx="40" fill="#F5F6F8"/>
+    <rect x="20" y="40" width="335" height="140" rx="26" fill="#191919"/>
+    <text x="72" y="102" fill="#F87171" font-family="Pretendard, sans-serif" font-weight="800" font-size="14">AD PAY: 시간을 아끼는 중입니다</text>
+    <text x="142" y="132" fill="white" font-family="Pretendard, sans-serif" font-weight="700" font-size="15">00:15 / 01:00</text>
+    <rect x="20" y="198" width="335" height="86" rx="24" fill="white" stroke="#FA2828" stroke-width="2"/>
+    <text x="42" y="236" fill="#191919" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">취업 성공 필수 자격증 강의 (시청인증)</text>
+    <text x="255" y="246" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="15">+1,000 AD</text>
+    <rect x="20" y="298" width="335" height="82" rx="24" fill="white"/>
+    <text x="42" y="336" fill="#191919" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">클린토피아 5분 초고속 세탁 (1분)</text>
+    <text x="268" y="346" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="15">+100 AD</text>
+    <rect x="20" y="394" width="335" height="82" rx="24" fill="white"/>
+    <text x="42" y="432" fill="#191919" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">트레비앙 스페셜 커피 (30초)</text>
+    <text x="275" y="442" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="15">+50 AD</text>
   </g>
-  <g id="03_AD_PAY_Payment_PAYCO_Red" transform="translate(830,0)">
-    <rect width="375" height="812" rx="36" fill="#F3F5F7"/>
-    <rect x="20" y="40" width="335" height="170" rx="22" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="78" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="900" font-size="18">아이스 아메리카노 1잔</text>
-    <rect x="40" y="96" width="140" height="80" rx="14" fill="#FEF2F2"/>
-    <text x="60" y="145" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="900" font-size="18">10,000원</text>
-    <rect x="195" y="96" width="140" height="80" rx="14" fill="#FEF2F2"/>
-    <text x="212" y="145" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="18">광고 100분</text>
-    <rect x="20" y="230" width="335" height="125" rx="20" fill="#FEF2F2" stroke="#FA2828" stroke-width="2"/>
-    <text x="40" y="268" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="900" font-size="16">● 후불 광고 결제 (수수료 +5%)</text>
-    <text x="40" y="302" fill="#991B1B" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">보유 8,000 AD 차감 + 24시간 내 광고 21분</text>
-    <rect x="20" y="690" width="335" height="58" rx="18" fill="url(#payco_grad)"/>
-    <text x="85" y="725" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="16">후불 광고로 결제하기 (+21분)</text>
+  <g id="03_KakaoPay_AD_PAY_Barcode_Pay" transform="translate(830,0)">
+    <rect width="375" height="812" rx="40" fill="#F5F6F8"/>
+    <rect x="20" y="40" width="335" height="230" rx="26" fill="white" stroke="#FA2828" stroke-width="2"/>
+    <rect x="42" y="68" width="291" height="72" rx="14" fill="#F5F6F8"/>
+    <text x="108" y="110" fill="#191919" font-family="monospace" font-weight="900" font-size="16">||| |||| || |||| |||</text>
+    <text x="42" y="176" fill="#191919" font-family="Pretendard, sans-serif" font-weight="900" font-size="18">아이스 아메리카노 1잔</text>
+    <text x="42" y="210" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="18">10,000원 / 일반 광고 100분</text>
+    <rect x="20" y="290" width="335" height="125" rx="24" fill="#FEF2F2" stroke="#FA2828" stroke-width="2"/>
+    <text x="42" y="330" fill="#191919" font-family="Pretendard, sans-serif" font-weight="900" font-size="16">⚡ 후불 광고 결제 (수수료 +5%)</text>
+    <text x="42" y="362" fill="#991B1B" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">보유 8,000 AD 차감 + 24시간 내 광고 21분</text>
+    <rect x="20" y="690" width="335" height="58" rx="20" fill="#FA2828"/>
+    <text x="80" y="725" fill="white" font-family="Pretendard, sans-serif" font-weight="900" font-size="16">후불 광고로 결제하기 (+21분)</text>
   </g>
-  <g id="04_AD_PAY_Contracts_PAYCO_Red" transform="translate(1245,0)">
-    <rect width="375" height="812" rx="36" fill="#F3F5F7"/>
-    <rect x="20" y="40" width="335" height="120" rx="22" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="80" fill="#64748B" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">오늘 총 의무 시간 / 남은 시간</text>
-    <text x="40" y="122" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="24">2시간 중 1시간 30분 남음</text>
-    <rect x="20" y="180" width="335" height="76" rx="18" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="224" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">💻 태블릿 광고 할부 (하루 26분)</text>
-    <rect x="20" y="270" width="335" height="76" rx="18" fill="white" stroke="#E2E8F0"/>
-    <text x="40" y="314" fill="#1E1E23" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">🚇 교통 정기권 할부 (하루 20분)</text>
-    <rect x="20" y="360" width="335" height="76" rx="18" fill="#FEF2F2" stroke="#FCA5A5"/>
-    <text x="40" y="404" fill="#991B1B" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">☕ 학식·커피 후불 결제 (약 1시간)</text>
+  <g id="04_KakaoPay_AD_PAY_Assets_Debt" transform="translate(1245,0)">
+    <rect width="375" height="812" rx="40" fill="#F5F6F8"/>
+    <rect x="20" y="40" width="335" height="130" rx="26" fill="white"/>
+    <text x="42" y="78" fill="#8E8E93" font-family="Pretendard, sans-serif" font-weight="700" font-size="13">나의 시간 자산 · 광고 약정 현황</text>
+    <text x="42" y="118" fill="#FA2828" font-family="Pretendard, sans-serif" font-weight="900" font-size="22">2시간 중 1시간 30분 남음</text>
+    <rect x="20" y="190" width="335" height="76" rx="22" fill="white"/>
+    <text x="42" y="234" fill="#191919" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">💻 태블릿 광고 할부 (하루 26분)</text>
+    <rect x="20" y="280" width="335" height="76" rx="22" fill="white"/>
+    <text x="42" y="324" fill="#191919" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">🚇 교통 정기권 할부 (하루 20분)</text>
+    <rect x="20" y="370" width="335" height="76" rx="22" fill="#FEF2F2" stroke="#FCA5A5"/>
+    <text x="42" y="414" fill="#991B1B" font-family="Pretendard, sans-serif" font-weight="800" font-size="15">☕ 학식·커피 후불 결제 (약 1시간)</text>
   </g>
   <defs>
-    <linearGradient id="payco_grad" x1="0" y1="0" x2="335" y2="168" gradientUnits="userSpaceOnUse">
+    <linearGradient id="payco_grad" x1="0" y1="0" x2="335" y2="176" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FA2828"/>
       <stop offset="1" stop-color="#D91428"/>
     </linearGradient>
   </defs>
 </svg>`;
       navigator.clipboard.writeText(svgCode).then(() => {
-        alert('✅ PAYCO 레드(#FA2828) 테마가 적용된 피그마 4대 화면 SVG가 복사되었습니다!\n\n피그마 캔버스에 Cmd+V / Ctrl+V로 바로 붙여넣으세요.');
+        alert('✅ 카카오페이 구조 × PAYCO 레드 4대 화면 SVG가 복사되었습니다!\n\n피그마 캔버스에 Cmd+V / Ctrl+V로 바로 붙여넣으세요.');
       });
     }
 
