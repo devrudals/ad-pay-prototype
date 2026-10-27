@@ -1,10 +1,10 @@
 {
   "name": "AD PAY — 더 나은 삶을 위해 (2045)",
   "short_name": "AD PAY",
-  "description": "2045 통합 광고 화폐 결제 플랫폼 AD PAY 모바일 프로토타입",
-  "start_url": "/",
+  "description": "2045 통합 광고 화폐 결제 플랫폼 AD PAY 모바일 프로토타입 (PAYCO Red)",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#1E1E23",
-  "theme_color": "#F59E0B",
+  "theme_color": "#FA2828",
   "orientation": "portrait"
 }
